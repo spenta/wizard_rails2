@@ -1,10 +1,16 @@
 - visitor starts wizard
+On the home page, the visitor clicks on the "start wizard" button and lands on the questions page
+
 - visitor answers questions about his needs
-- visitor submits his answers
+The visitor start answering questions about his needs by choosing which actions he will realize whith his laptop. After choosing one use, he will be asked to further specify his choice. He then validates and if he choose at least one usage, he will go to the second page of the form (otherwise an error message is displayed).
+On the second page of the form, the visitor will be asked to specify the relative priority of each of his uses. To do so, he will move a handle on a horizontal slider. After validating, he will go to the last page of the form.
+On this last page, the visitor tells the wether his laptop should be portable or not, and to what extent, by way of moving a handle on a slider, in a way similar to that of the preceding page.
+Eventually, he submits his answers.
+At any point on the second or third page, the visitor can amend the choices he made on the preceeding pages. When he leaves a page, and then goes back to it, its state should not be changed.
+
 - visitor reads suggestions
 - visitor asks for details about a product while reading suggestions
 - visitor goes to the product's page on the retailer's website while reading suggestions
 - visitor start over while reading suggestions
-- visitor amends his choices after having answered the wizard's questions
 - visitor browses all the available products
 - visitor goes to the home page or to the wizard from anywhere
