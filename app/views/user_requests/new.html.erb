@@ -1,1 +1,9 @@
-<div id="form_first_page"></div> 
+<div id="form_first_page">
+  <h1>first form page</h1> 
+</div> 
+
+<% SuperUsage.all.each do |su|  %>
+  <%= content_tag :div, :id=>"super_usage#{su.id}" do%>
+    <%= content_tag :h2, su.name %>
+  <%end  %>
+<%end  %>

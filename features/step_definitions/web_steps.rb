@@ -2,6 +2,7 @@ require 'uri'
 require 'cgi'
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "paths"))
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "selectors"))
+require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "helpers"))
 
 module WithinHelpers
   def with_scope(locator)
@@ -9,20 +10,28 @@ module WithinHelpers
   end
 end
 World(WithinHelpers)
+World(WebStepsHelpers)
 
 # -------------------------------------------------
 # Given
 # -------------------------------------------------
+Given /^I am on the first page of the wizard form$/ do
+  visit new_user_request_path
+end
+
+Given /^a set of (.+)$/ do |model|
+  model.gsub!(' ', '_')
+  ActiveRecord::Fixtures.create_fixtures(fixtures_folder, model)
+end
   # -------------------------------------------------
   # Defaults
   # -------------------------------------------------
-Given /^(?:|I )am on (.+)$/ do |page_name|
-  visit path_to(page_name)
-end
-
 # -------------------------------------------------
 # When
 # -------------------------------------------------
+When /^I do nothing$/ do
+end
+
   # -------------------------------------------------
   # Defaults
   # -------------------------------------------------
@@ -89,6 +98,19 @@ end
 Then /^(?:|I )should be on the (.*) page of the form$/ do |page_number|
   page.should have_css('#form_first_page')
 end
+
+Then /^I should see all the super usages$/ do
+  SuperUsage.all.each do |su|
+    page.should have_css("#super_usage#{su.id}")
+  end
+end
+
+Then /^no super usages should be selected$/ do
+  SuperUsage.all.each do |su|
+    page.should_not have_css(".selected")
+  end
+end
+
   # -------------------------------------------------
   # Defaults
   # -------------------------------------------------
