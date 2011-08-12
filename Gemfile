@@ -17,8 +17,13 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem 'cucumber'
-gem 'rspec'
+
+group :test do
+  gem 'rspec-rails'
+  gem 'cucumber-rails'
+  gem 'capybara'
+  gem 'database_cleaner'
+end
 
 # Use unicorn as the web server
 # gem 'unicorn'
