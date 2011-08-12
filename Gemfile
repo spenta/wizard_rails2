@@ -1,11 +1,9 @@
 source 'http://rubygems.org'
-
 gem 'rails', '3.1.0.rc5'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
 gem 'mysql2'
 
 # Gems used only for assets and not required
@@ -36,6 +34,7 @@ end
 gem 'execjs'
 gem 'therubyracer'
 group :test do
+  gem 'sqlite3'
   # Pretty printed test output
   gem 'turn', :require => false
 end

@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+super_usage1:
+  id: 1
+  name: Bureautique
+
+super_usage2:
+  id: 2
+  name: Internet
