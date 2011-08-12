@@ -39,5 +39,9 @@ module WizardRails2
 
     # Enable the asset pipeline
     config.assets.enabled = true
+
+    #Autoload lib directory
+    config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
   end
 end

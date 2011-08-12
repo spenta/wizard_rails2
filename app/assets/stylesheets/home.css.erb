@@ -1,0 +1,38 @@
+/* ---------------------------
+Styles par défaut
+--------------------------- */
+
+* {
+  font-family:"Arial", Arial, sans-serif;
+  font-size:12px;
+  color:white;
+}
+
+body, html { background-color:#E5E5E5; }
+.no_underline{
+  text-decoration:none
+}
+/* ---------------------------
+Home
+--------------------------- */
+#home {
+  background-color: #50A5D7;
+  margin: 0 auto;
+  padding-bottom: 10px;
+}
+
+.wrapper {
+  width: 960px;
+  padding: 10px 0 0 0;
+  margin: 0 auto;
+}
+
+.button{
+  margin: 5px auto;
+  height: 30px;
+  width: 235px;
+  background-image:url("<%= asset_path 'home/wizard_start_button.png'%>");
+  font-size: 2.1em;
+  text-shadow: 1px 1px #666;
+  padding: 18px 25px;
+}
