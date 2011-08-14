@@ -19,10 +19,10 @@ gem 'jquery-rails'
 group :test do
   gem 'rspec-rails'
   gem 'cucumber-rails'
+  gem 'factory_girl_rails'
   gem 'capybara'
   gem 'database_cleaner'
 end
-
 # Use unicorn as the web server
 # gem 'unicorn'
 
