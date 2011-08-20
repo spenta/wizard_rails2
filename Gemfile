@@ -16,12 +16,18 @@ end
 
 gem 'jquery-rails'
 
-group :test do
+group :test, :development do
   gem 'rspec-rails'
+end
+
+group :test do
   gem 'cucumber-rails'
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'database_cleaner'
+  gem 'sqlite3'
+  # Pretty printed test output
+  gem 'turn', :require => false
 end
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -33,8 +39,3 @@ end
 # gem 'ruby-debug19', :require => 'ruby-debug'
 gem 'execjs'
 gem 'therubyracer'
-group :test do
-  gem 'sqlite3'
-  # Pretty printed test output
-  gem 'turn', :require => false
-end
