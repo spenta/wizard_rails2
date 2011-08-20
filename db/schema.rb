@@ -10,10 +10,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110812190255) do
+ActiveRecord::Schema.define(:version => 20110820191545) do
 
   create_table "super_usages", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "usage_choices", :force => true do |t|
+    t.float    "weight_for_user"
+    t.integer  "usage_id"
+    t.integer  "user_request_id"
+    t.boolean  "is_selected"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -26,5 +35,12 @@ ActiveRecord::Schema.define(:version => 20110812190255) do
   end
 
   add_index "usages", ["super_usage_id"], :name => "index_usages_on_super_usage_id"
+
+  create_table "user_requests", :force => true do |t|
+    t.boolean  "is_complete"
+    t.text     "user_response"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
