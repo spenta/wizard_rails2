@@ -7,8 +7,8 @@ describe UserRequestsController do
   end
 
   describe 'GET new' do
-    it 'assign all the super usages as @super_usages' do
-      SuperUsage.stub(:all) {[mock_super_usage]}
+    it 'assign all the super usages except mobilities as @super_usages' do
+      SuperUsage.stub(:all_except_mobilities) {[mock_super_usage]}
       get :new
       assigns[:super_usages].should eq([mock_super_usage])
     end

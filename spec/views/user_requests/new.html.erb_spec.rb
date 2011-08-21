@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'user_requests/new.html.erb' do
   before(:all) do
-    %w{Bureautique Internet}.each do |su_name|
+    %w{Bureautique Internet Mobilite}.each do |su_name|
       super_usage = Factory(:super_usage, :name => su_name)
       %w{1 2}.each do |usage_num|
         usage = Factory(:usage, :name =>su_name+"_"+usage_num, :super_usage_id => super_usage.id)
@@ -12,7 +12,7 @@ describe 'user_requests/new.html.erb' do
   end
 
   before(:each) do
-    assign(:super_usages, SuperUsage.all)
+    assign(:super_usages, SuperUsage.all_except_mobilities)
     render
   end
 
@@ -20,12 +20,14 @@ describe 'user_requests/new.html.erb' do
     rendered.should have_selector('form', :action => user_requests_path, :method => 'post')
   end
 
-  it 'shows all the super usages and usages' do
-    SuperUsage.all.each do |su|
+  it 'shows all the super usages and usages except mobilty-related' do
+    SuperUsage.all_except_mobilities.each do |su|
       rendered.should have_selector("div#super_usage_#{su.id}")
       su.usages.each do |u|
         rendered.should have_selector("input#usage_#{u.id}")
       end
     end
+    mobility = SuperUsage.where(:name => 'Mobilite').first 
+    rendered.should_not have_selector("div#super_usage_#{mobility.id}")
   end
 end
