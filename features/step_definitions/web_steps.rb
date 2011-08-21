@@ -38,7 +38,7 @@ end
 
 When /^I click on the "([^"]*)" super usage$/ do |super_usage_name|
   super_usage = SuperUsage.find_by_name(super_usage_name)
-  page.find('#super_usage'+super_usage.id.to_s).click
+  page.find('#super_usage_'+super_usage.id.to_s).click
 end
 # -------------------------------------------------
 # Then
@@ -49,7 +49,7 @@ end
 
 Then /^I should see all the super usages$/ do
   SuperUsage.all.each do |su|
-    page.should have_css("#super_usage#{su.id}")
+    page.should have_css("#super_usage_#{su.id}")
   end
 end
 
