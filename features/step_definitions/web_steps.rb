@@ -47,11 +47,15 @@ When /^I click on the "([^"]*)" super usage$/ do |super_usage_name|
   super_usage = SuperUsage.find_by_name(super_usage_name)
   page.find('#super_usage_'+super_usage.id.to_s).click
 end
+
+When /^I follow "([^"]*)"$/ do |link|
+  click_link(link)
+end
 # -------------------------------------------------
 # Then
 # -------------------------------------------------
 Then /^(?:|I )should be on the (.*) page of the form$/ do |page_number|
-  page.should have_css('#form_first_page')
+  page.should have_css(".#{page_number}_page")
 end
 
 Then /^I should see all the super usages$/ do
