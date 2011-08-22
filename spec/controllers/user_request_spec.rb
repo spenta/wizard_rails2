@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe UserRequestsController do
-  before(:all) do
+  before(:each) do
     Factory(:super_usage, :name => 'Bureautique')
     Factory(:super_usage, :name => 'Internet')
   end
