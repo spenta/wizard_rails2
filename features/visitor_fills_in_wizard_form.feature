@@ -38,7 +38,6 @@ Feature: visitor fills in wizard form
     And I click on "validate usages"
     Then the "<super_usage>" super usage <should_or_should_not> be validated
 
-    @current
     Scenarios: choose 2 distinct usages
       | super_usage | usage1        | usage2        | should_or_should_not |
       | Bureautique | Bureautique_1 | Bureautique_2 | should               |
