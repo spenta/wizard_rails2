@@ -1,77 +1,47 @@
-<div id="form_first_page">
-  <h1>first form page</h1> 
-</div> 
+<%= stylesheet_link_tag 'user_request_form' %>
+<%= javascript_include_tag 'user_request_form' %>
 
 <div id="form_wrapper"> 
+
   <div id="main" class="usages"> 
-    <%= form_tag('user_requests') do%>
+    <h1><%= t_safe  "selection_step_title"%></h1>
+    <p class="explain usageSubtitle"><%= t_safe "selection_step_subtitle" %></p>
+    <div class="sideinfo" id="myFormInfoContainer">
+      <%= t_safe "selection_step_sideinfo" %>
+    </div>
+    <%= form_tag('user_requests', :class => 'tabbed') do%>
       <% @super_usages.each do |su|  %>
-        <%= content_tag :div, :id=>"super_usage_#{su.id}" do%>
-          <div class="answer multichoice">
-            <% su.usages.each do |u|  %>
-              <label>
-                <%= check_box_tag "usage_#{u.id}" %>
-              </label>
-            <% end  %>
+        <%= content_tag :div, :id=>"super_usage_#{su.id}", :class => 'question' do%>
+          <span class="qicon"></span>
+          <div class="qbody">
+            <div class="qname"><h2 class="usageTitle"><%=t_safe "super_usage_title_#{su.id}"%></h2></div>
+            <div class="qdesc">
+              <h3 class="usageSubQuestion"><%=t_safe "super_usage_question_#{su.id}"%></h3>
+              <p class="usageExplain"><%=t :selection_step_hint %></p>
+            </div>
+            <div class="qinfo">
+              <%= t_safe "selection_step_sideinfo_super_usage_#{su.id}" %>
+            </div>
+            <div class="answer multichoice">
+              <% su.usages.each do |u|  %>
+                <label>
+                  <%= check_box_tag "usage_#{u.id}", 1, false %>
+                  <span class="name"><%=t_safe "usage_title_#{u.id}"%></span>
+                  <span class="desc"><%=t_safe "usage_description_#{u.id}"%></span>
+                </label>
+              <% end  %>
+            </div>
           </div>
         <% end  %>
       <% end  %>
+      <div class="clearfix"></div>
+      <div class="actions">
+
+        <input class="next-button" id="user_request_submit" name="commit" type="submit" value="Suivant">
+
+      </div>
     <% end  %>
+    <div class="clearfix"></div>
   </div>
 </div>
-
-<!-- <div id="form_wrapper"> 
-  <div id="main" class="usages"> 
-    <h1>Étape 1/3 - Qu'allez-vous faire avec votre ordinateur ?</h1> 
-    <p class="explain usageSubtitle">Choisissez et renseignez seulement les usages qui vous intéressent.</p> 
-    <div class="sideinfo" id="myFormInfoContainer"> 
-      <h5>Trouver le meilleur ordinateur </h5> 
-      <p>Le meilleur ordinateur, c'est celui qui fait bien <strong>tout ce que vous voulez</strong>, au bon prix. Ce n'est pas le même pour tout le monde !</p> 
-      <p>Le conseiller virtuel analyse vos besoins pour vous donner un conseil <strong>personnalisé</strong> et <strong>objectif</strong>.</p> 
-      <h5>Dites-nous toutes vos envies</h5> 
-      <p>Choisissez tout ce que vous allez faire avec votre ordinateur, même si ça ne vous paraît pas très important. Vous pourrez faire le tri de ce qui compte vraiment à l'étape suivante.</p> 
-    </div> 
-
-    <form accept-charset="UTF-8" action="/conseiller-virtuel/3678" class="tabbed" id="edit_user_request_3678" method="post">
-      <div style="margin:0;padding:0;display:inline">
-        <input name="utf8" type="hidden" value="&#x2713;" />
-        <input name="_method" type="hidden" value="put" />
-        <input name="authenticity_token" type="hidden" value="nyw0fHTr9xfPHxOzm5kDvwov2unsCSQQR7jP5jeR7AM=" />
-      </div> 
-      <div class="question" id="super-usage1"> 
-        <span class="qicon">
-        </span> 
-        <div class="qbody"> 
-          <div class="qname">
-            <h2 class="usageTitle">Rédiger des documents</h2>
-          </div> 
-          <div class="qdesc"> 
-            <h3 class="usageSubQuestion">Quels documents allez-vous réaliser ?</h3> 
-            <p class="usageExplain">Cochez ce qui vous intéresse puis validez.</p> 
-          </div> 
-          <div class="qinfo"> 
-            <h5>Les documents simples</h5> 
-            <p>Vous rédigez principalement de courts textes ou des feuilles de calcul simples ? Il n'y a pas besoin de beaucoup de puissance, mais un écran correct est bien plus confortable.</p> 
-            <h5>Les documents avancés</h5> 
-            <p>Choisissez cette option si vous faites de longs rapports illustrés, des présentations animées ou manipulez régulièrement des feuilles de calcul complexes. Un processeur puissant et de la mémoire vive sont importants pour travailler avec fluidité.</p> 
-
-          </div> 
-          <div class="answer multichoice"> 
-            <label> 
-              <input id="usage_choice_selected_73541" name="usage_choice_selected_73541" type="checkbox" value="1" />
-              <input type="hidden" value="on"/> 
-              <span class="name">Documents simples</span> 
-              <span class="desc">Courriers, notes, comptes personnels ...</span> 
-            </label> 
-            <label> 
-              <input id="usage_choice_selected_73542" name="usage_choice_selected_73542" type="checkbox" value="1" />
-              <input type="hidden" value="on"/> 
-              <span class="name">Documents avancés</span> 
-              <span class="desc">Rapports, graphiques, présentations ...</span> 
-            </label> 
-          </div> 
-        </div> 
-      </div>  
-    </form>
-  </div>
-</div> -->
+<div class="clearfix"></div>
