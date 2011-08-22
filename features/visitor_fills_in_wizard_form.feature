@@ -28,3 +28,27 @@ Feature: visitor fills in wizard form
       | Internet    | 3             | Internet_1    | Bureautique_1     |
       | Internet    | 3             | Internet_2    | Bureautique_2     |
       | Internet    | 3             | Internet_3    | Bureautique_1     |
+
+  @javascript
+  Scenario Outline: select and deselect usages
+    Given I am on the first page of the wizard form
+    When I click on the "<super_usage>" super usage
+    When I choose the "<usage1>" usage
+    And I choose the "<usage2>" usage
+    And I click on "validate usages"
+    Then the "<super_usage>" super usage <should_or_should_not> be validated
+
+    @current
+    Scenarios: choose 2 distinct usages
+      | super_usage | usage1        | usage2        | should_or_should_not |
+      | Bureautique | Bureautique_1 | Bureautique_2 | should               |
+      | Internet    | Internet_1    | Internet_2    | should               |
+      | Internet    | Internet_2    | Internet_3    | should               |
+
+    Scenarios: click on the same usage twice
+      | super_usage | usage1        | usage2        | should_or_should_not |
+      | Bureautique | Bureautique_1 | Bureautique_1 | should_not           |
+
+    Scenarios: click on one usage and cancel
+      | super_usage | usage1        | usage2 | should_or_should_not |
+      | Bureautique | Bureautique_1 | cancel | should_not           |

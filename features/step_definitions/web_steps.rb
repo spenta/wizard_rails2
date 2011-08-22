@@ -43,6 +43,10 @@ end
 When /^I do nothing$/ do
 end
 
+When /^I click on "validate usages"$/ do
+  page.find('.question.opened .validate')
+end
+
 When /^I click on the "([^"]*)" super usage$/ do |super_usage_name|
   super_usage = SuperUsage.find_by_name(super_usage_name)
   page.find('#super_usage_'+super_usage.id.to_s).click
@@ -51,6 +55,16 @@ end
 When /^I follow "([^"]*)"$/ do |link|
   click_link(link)
 end
+
+When /^I choose the "([^"]*)" usage$/ do |usage_name|
+  if usage_name == "cancel"
+    page.find(".checkbox.none .name").click
+  else
+    usage_id = Usage.find_by_name(usage_name).id
+    page.find(".usage_name_#{usage_id}").click
+  end
+end
+
 # -------------------------------------------------
 # Then
 # -------------------------------------------------
@@ -71,16 +85,22 @@ Then /^no super usages should be selected$/ do
 end
 
 Then /^I should see a number of ([0-9]+) usages$/ do |num_usages|
-  visible_usages = page.all('.question.opened .usage_checkbox')
+  visible_usages = page.all('.question.opened .usage_name')
   visible_usages.size.should eq(num_usages.to_i)
 end
 
 Then /^I should see the usage "([^"]*)"$/ do |usage_name|
-  usage_id = Usage.where(:name => usage_name).first.id
+  usage_id = Usage.find_by_name(usage_name).id
   page.should have_css(".question.opened #usage_#{usage_id}")
 end
 
 Then /^I should not see the usage "([^"]*)"$/ do |usage_name|
-  usage_id = Usage.where(:name => usage_name).first.id
+  usage_id = Usage.find_by_name(usage_name).id
   page.should_not have_css(".question.opened #usage_#{usage_id}")
+end
+
+Then /^the "([^"]*)" super usage (.*) be validated$/ do |super_usage_name, should_be_validated|
+  super_usage_id = SuperUsage.find_by_name(super_usage_name).id
+  selector = "#super_usage_#{super_usage_id}.selected"
+  (should_be_validated == "should") ? page.should(have_css(selector)) : page.should_not(have_css(selector))
 end

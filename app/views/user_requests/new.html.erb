@@ -26,7 +26,7 @@
               <% su.usages.each do |u|  %>
                 <label>
                   <%= check_box_tag "usage_#{u.id}", 1, false %>
-                  <span class="name usage_checkbox"><%=t_safe "usage_title_#{u.id}"%></span>
+                  <%= content_tag :span, t_safe("usage_title_#{u.id}"), :class => "name usage_name usage_name_#{u.id}"%>
                   <span class="desc"><%=t_safe "usage_description_#{u.id}"%></span>
                 </label>
               <% end  %>

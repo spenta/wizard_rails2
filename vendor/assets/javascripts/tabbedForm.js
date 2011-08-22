@@ -226,6 +226,7 @@ return this.each(function()
 	// create the <.close> button
 	var closeBtn = $('<span/>')
 		.addClass('close')
+    .addClass('validate')
 		// label & icon
 		.append($('<span/>').addClass('label').html(settings.closeText))
 		.append($('<span/>').addClass('icon'))
