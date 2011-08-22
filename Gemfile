@@ -4,7 +4,6 @@ gem 'rails', '3.1.0.rc5'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -15,6 +14,12 @@ group :assets do
 end
 
 gem 'jquery-rails'
+
+gem 'pg'
+
+group :development do
+gem 'mysql2'
+end
 
 group :test, :development do
   gem 'rspec-rails'
