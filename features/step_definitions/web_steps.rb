@@ -25,9 +25,16 @@ end
 
 Given /^a set of (.+)$/ do |model|
   case model
-  when 'super usages'
-    Factory(:super_usage, :name => 'Bureautique')
-    Factory(:super_usage, :name => 'Internet')
+  when 'super usages with usages'
+    %w{Bureautique Internet Mobilite}.each do |su_name|
+      super_usage = Factory(:super_usage, :name => su_name)
+      %w{1 2 3}.each do |usage_num|
+        if (su_name == 'Internet' || usage_num.to_i < 3)
+          usage = Factory(:usage, :name =>su_name+"_"+usage_num, :super_usage_id => super_usage.id) 
+          super_usage.usages << usage
+        end
+      end
+    end
   end
 end
 # -------------------------------------------------
@@ -48,13 +55,28 @@ Then /^(?:|I )should be on the (.*) page of the form$/ do |page_number|
 end
 
 Then /^I should see all the super usages$/ do
-  SuperUsage.all.each do |su|
+  SuperUsage.all_except_mobilities.each do |su|
     page.should have_css("#super_usage_#{su.id}")
   end
 end
 
 Then /^no super usages should be selected$/ do
-  SuperUsage.all.each do |su|
+  SuperUsage.all_except_mobilities.each do |su|
     page.should_not have_css(".selected")
   end
+end
+
+Then /^I should see a number of ([0-9]+) usages$/ do |num_usages|
+  visible_usages = page.all('.question.opened .usage_checkbox')
+  visible_usages.size.should eq(num_usages.to_i)
+end
+
+Then /^I should see the usage "([^"]*)"$/ do |usage_name|
+  usage_id = Usage.where(:name => usage_name).first.id
+  page.should have_css(".question.opened #usage_#{usage_id}")
+end
+
+Then /^I should not see the usage "([^"]*)"$/ do |usage_name|
+  usage_id = Usage.where(:name => usage_name).first.id
+  page.should_not have_css(".question.opened #usage_#{usage_id}")
 end

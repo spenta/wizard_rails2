@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'user_requests/new.html.erb' do
-  before(:all) do
+  before(:each) do
     %w{Bureautique Internet Mobilite}.each do |su_name|
       super_usage = Factory(:super_usage, :name => su_name)
       %w{1 2}.each do |usage_num|

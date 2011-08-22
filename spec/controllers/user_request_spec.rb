@@ -5,7 +5,6 @@ describe UserRequestsController do
     Factory(:super_usage, :name => 'Bureautique')
     Factory(:super_usage, :name => 'Internet')
   end
-
   describe 'GET new' do
     it 'assign all the super usages except mobilities as @super_usages' do
       SuperUsage.stub(:all_except_mobilities) {[mock_super_usage]}
