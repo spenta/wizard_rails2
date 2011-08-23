@@ -9,7 +9,7 @@
     <div class="sideinfo" id="myFormInfoContainer">
       <%= t_safe "selection_step_sideinfo" %>
     </div>
-    <%= form_tag('user_requests', :class => 'tabbed') do%>
+    <%= form_tag('/user_requests', :class => 'tabbed') do%>
       <% @super_usages.each do |su|  %>
         <%= content_tag :div, :id=>"super_usage_#{su.id}", :class => 'question' do%>
           <span class="qicon"></span>
