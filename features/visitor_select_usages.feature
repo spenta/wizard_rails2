@@ -51,3 +51,25 @@ Feature: visitor fills in wizard form
     Scenarios: click on one usage and cancel
       | super_usage | usage1        | usage2 | should_or_should_not |
       | Bureautique | Bureautique_1 | cancel | should_not           |
+
+  @javascript
+  Scenario: displays an error when visitor clicks on next with no usages selected
+    Given I am on the first page of the wizard form
+    When I click on "next page"
+    Then I should see an error message
+
+  @javascript
+  Scenario: the error message disappear when the visitor clicks on any question
+    Given I am on the first page of the wizard form
+    When I click on "next page"
+    And I click on the "Bureautique" super usage
+    Then I should not see an error message
+
+  @javascript
+  Scenario: go to next page with one usage selected
+    Given I am on the first page of the wizard form
+    When I click on the "Bureautique" super usage
+    When I choose the "Bureautique_1" usage
+    And I click on "validate usages"
+    And I click on "next page"
+    Then I should be on the second page of the form 

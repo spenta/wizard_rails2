@@ -43,13 +43,18 @@ end
 When /^I do nothing$/ do
 end
 
-When /^I click on "validate usages"$/ do
-  page.find('.question.opened .validate')
-end
-
 When /^I click on the "([^"]*)" super usage$/ do |super_usage_name|
   super_usage = SuperUsage.find_by_name(super_usage_name)
   page.find('#super_usage_'+super_usage.id.to_s).click
+end
+
+When /^I click on "([^"])*"/ do |name|
+  case name
+  when "validate usages"
+    page.find('.question.opened .validate').click
+  when "next page"
+    page.find('.next-button').click
+  end
 end
 
 When /^I follow "([^"]*)"$/ do |link|
