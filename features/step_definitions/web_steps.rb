@@ -20,7 +20,7 @@ Given /^I am on the (.+) page$/ do |page_name|
 end
 
 Given /^I am on the first page of the wizard form$/ do
-  visit new_user_request_path
+  visit form_first_step_path
 end
 
 Given /^a set of (.+)$/ do |model|
@@ -48,12 +48,14 @@ When /^I click on the "([^"]*)" super usage$/ do |super_usage_name|
   page.find('#super_usage_'+super_usage.id.to_s).click
 end
 
-When /^I click on "([^"])*"/ do |name|
+When /^I click on "([^"]*)"/ do |name|
   case name
   when "validate usages"
     page.find('.question.opened .validate').click
   when "next page"
-    page.find('.next-button').click
+    click_button("next-button")
+  else
+    raise "not a valid destination"
   end
 end
 
