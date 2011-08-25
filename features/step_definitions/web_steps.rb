@@ -19,8 +19,9 @@ Given /^I am on the (.+) page$/ do |page_name|
   visit path_to(page_name)
 end
 
-Given /^I am on the first page of the wizard form$/ do
-  visit form_first_step_path
+Given /^I am on the (.+) page of the wizard form$/ do |page_number|
+  form_path = Rails.application.routes.url_helpers.method("form_#{page_number}_step_path")
+  visit form_path.call
 end
 
 Given /^a set of (.+)$/ do |model|
@@ -35,6 +36,8 @@ Given /^a set of (.+)$/ do |model|
         end
       end
     end
+  else
+    raise "invalid step definition : don't know how to make a set of '#{model}'"
   end
 end
 # -------------------------------------------------
@@ -120,5 +123,13 @@ Then /^I should (.*)see an error message$/ do |yes_or_no|
     page.should_not have_css('.warning')
   else
     raise "invalid step"
+  end
+end
+
+Then /^I should see only the super usage "([^"]*)"$/ do |super_usage_name|
+  selected_super_usage = SuperUsage.find_by_name super_usage_name
+  page.should have_css("#super_usage_#{selected_super_usage.id}")
+  SuperUsage.all.each do |su|
+    page.should_not have_css("#super_usage_#{su.id}") unless su.id == selected_super_usage.id
   end
 end

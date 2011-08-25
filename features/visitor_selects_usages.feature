@@ -31,7 +31,7 @@ Feature: visitor selects usages
   @javascript
   Scenario Outline: select and deselect usages
     When I click on the "<super_usage>" super usage
-    When I choose the "<usage1>" usage
+    And I choose the "<usage1>" usage
     And I choose the "<usage2>" usage
     And I click on "validate usages"
     Then the "<super_usage>" super usage <should_or_should_not> be validated
