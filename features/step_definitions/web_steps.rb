@@ -111,3 +111,14 @@ Then /^the "([^"]*)" super usage (.*) be validated$/ do |super_usage_name, shoul
   selector = "#super_usage_#{super_usage_id}.selected"
   (should_be_validated == "should") ? page.should(have_css(selector)) : page.should_not(have_css(selector))
 end
+
+Then /^I should (.*)see an error message$/ do |yes_or_no|
+  case yes_or_no
+  when ""
+    page.should have_css('.warning')
+  when "not "
+    page.should_not have_css('.warning')
+  else
+    raise "invalid step"
+  end
+end

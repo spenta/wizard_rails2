@@ -1,21 +1,20 @@
-Feature: visitor fills in wizard form
+Feature: visitor selects usages
 
   As a visitor
-  I want to fill in the wizard form
+  I want to specify which uses I will make of my laptop
   So that I can see the most suitable laptops for my needs
   
   Background:
     Given a set of super usages with usages
+    And I am on the first page of the wizard form
 
   Scenario: see all super usages
-    Given I am on the first page of the wizard form
     When I do nothing
     Then I should see all the super usages
     And no super usages should be selected
 
   @javascript
   Scenario Outline: select super usages
-    Given I am on the first page of the wizard form
     When I click on the "<super_usage>" super usage
     Then I should see a number of <usages_number> usages
     And I should see the usage "<usage_example>"
@@ -31,7 +30,6 @@ Feature: visitor fills in wizard form
 
   @javascript
   Scenario Outline: select and deselect usages
-    Given I am on the first page of the wizard form
     When I click on the "<super_usage>" super usage
     When I choose the "<usage1>" usage
     And I choose the "<usage2>" usage
@@ -54,13 +52,11 @@ Feature: visitor fills in wizard form
 
   @javascript
   Scenario: displays an error when visitor clicks on next with no usages selected
-    Given I am on the first page of the wizard form
     When I click on "next page"
     Then I should see an error message
 
   @javascript
   Scenario: the error message disappear when the visitor clicks on any question
-    Given I am on the first page of the wizard form
     When I click on "next page"
     And I click on the "Bureautique" super usage
     Then I should not see an error message
@@ -68,7 +64,6 @@ Feature: visitor fills in wizard form
   @current
   @javascript
   Scenario: go to next page with one usage selected
-    Given I am on the first page of the wizard form
     When I click on the "Bureautique" super usage
     When I choose the "Bureautique_1" usage
     And I click on "validate usages"
