@@ -12,6 +12,7 @@ describe Usage do
     end
   end
 
+
   describe 'all_except_mobilities' do
     it 'returns all the usages which are not mobility-related' do
       expected_usages_names = %w{Bureautique_1 Bureautique_2 Internet_1 Internet_2}

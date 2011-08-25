@@ -8,4 +8,9 @@ class SuperUsage < ActiveRecord::Base
   def self.all_except_mobilities_ids
     @@all_except_mobilities_ids ||= all_except_mobilities.collect{|su| su.id}
   end
+
+  def self.reset
+    @@all_except_mobilities = nil
+    @@all_except_mobilities_ids = nil
+  end
 end
