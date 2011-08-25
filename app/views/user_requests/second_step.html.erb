@@ -7,7 +7,7 @@
     <%= form_tag(:root, :class => 'tabbed') do %>
       <% @usage_choices.each do |super_usage_key, super_usage_value|  %>
         <%= content_tag :div, :id=>super_usage_key, :class => 'question' do%>
-          <%# REFACTORISER !!!  %>
+          <%# REFACTORISER  ET FINIR LES WEIGHTS!!!  %>
           <% su_id = super_usage_key.split('_').last  %>
           <span class="qicon"></span> 
           <div class="qbody">

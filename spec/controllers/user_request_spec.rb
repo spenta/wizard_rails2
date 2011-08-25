@@ -50,6 +50,7 @@ describe UserRequestsController do
       assigns[:usage_choices].should be_nil 
       response.should redirect_to(form_first_step_path)
 
+      #spelling mistake on selectd_usages
       session["usage_choices"] = {"super_usage_1 " => {"selected_uages" => "1, 2", "weight" => "23"}}
       get :second_step
       assigns[:usage_choices].should be_nil 

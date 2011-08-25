@@ -54,6 +54,7 @@ class UserRequestsController < ActionController::Base
     begin
       usage_choices.each do |super_usage_key, super_usage_value|
         super_usage_id = super_usage_key.split('super_usage_').last.to_i
+        throw "invalid mobilit-related super_usage" unless SuperUsage.all_except_mobilities_ids.include?(super_usage_id)
         usage_ids = super_usage_value["selected_usages"].split(", ")
         usage_ids.each do |u_id| 
           throw "invalid usage/super_usage association during session validation" unless Usage.find(u_id).super_usage_id == super_usage_id
