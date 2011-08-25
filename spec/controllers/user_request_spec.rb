@@ -22,9 +22,9 @@ describe UserRequestsController do
 
   describe 'POST choose_usages' do
     context 'when at least one valid usage is choosen' do
-      it 'creates a new usage_choices in session with usage choices exactly corresponding to choosen usages and weight_for_user equal to 0' do
+      it 'creates a new usage_choices in session with usage choices exactly corresponding to choosen usages and weight_for_user equal to 50' do
         post :choose_usages, :usage_1 => "1"
-        session[:usage_choices].should eq({"usage_1" => "0"})
+        session[:usage_choices].should eq({"usage_1" => "50"})
       end
 
       it 'redirects to the second page of the form' do

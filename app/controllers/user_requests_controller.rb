@@ -10,7 +10,7 @@ class UserRequestsController < ActionController::Base
 
   def choose_usages
     usage_choices = {}
-    chosen_usages.each {|u| usage_choices[u] = "0"}
+    chosen_usages.each {|u| usage_choices[u] = "50"}
       if usage_choices.empty?
         redirect_to :form_first_step, :flash => {:error => "no_valid_usages"}
       else
