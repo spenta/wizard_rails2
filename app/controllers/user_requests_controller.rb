@@ -31,11 +31,6 @@ class UserRequestsController < ActionController::Base
 
   def is_valid_usage usage_name
     usage_id = usage_name.split('_').last.to_i
-    begin
-      Usage.find(usage_id)
-    rescue ActiveRecord::RecordNotFound
-      return false
-    end
-    true
+    Usage.all_except_mobilities_ids.include?(usage_id)
   end
 end

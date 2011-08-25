@@ -2,9 +2,14 @@ require 'spec_helper'
 
 describe UserRequestsController do
   before(:each) do
-    Factory(:super_usage, :name => 'Bureautique')
-    Factory(:super_usage, :name => 'Internet')
-    Factory(:usage, :name => "Bureautique_Simple", :id => 1)
+    id = 1
+    %w{Bureautique Internet Mobilite}.each do |super_usage_name|
+      super_usage = Factory(:super_usage, :name => super_usage_name)
+      [1, 2].each do |usage_number|
+        Factory(:usage, :name => "#{super_usage_name}_#{usage_number}", :super_usage_id => super_usage.id, :id => id)
+        id += 1
+      end
+    end
   end
 
   describe 'GET first_step' do
@@ -37,7 +42,7 @@ describe UserRequestsController do
 
   context 'when no valid usage is selected' do
     it 'redirects to the first page of the wizard with a message saying that the at leat one usages should be selected' do
-      post :choose_usages, :usage_0 => "1", :usage_99999 => "1", :usage_qwe => "1", :usage_1a => "1"
+      post :choose_usages, :usage_0 => "1", :usage_99999 => "1", :usage_qwe => "1", :usage_1a => "1", :usage_5 => "1"
       response.should redirect_to(form_first_step_path)
       flash[:error].should eq("no_valid_usages")
     end
