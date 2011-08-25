@@ -242,12 +242,12 @@ function UsageForm(selector)
 $(document).ready(function(){
   var myForm = $('form.tabbed');
   $('form.tabbed').tabbedForm({
-    closeText:'<%= I18n.t :selection_step_validate %>',
+    closeText:'<%= I18n.t :form_first_step_validate %>',
     infoContainer:$('#myFormInfoContainer')
   });
   $('.answer.multichoice').answerMultichoice({
     addNone:true,
-    noneText:"<%=I18n.t :selection_step_dont_care %>"
+    noneText:"<%=I18n.t :form_first_step_dont_care %>"
   });
   $(".question").click(function(event){
     $(".warning").remove();

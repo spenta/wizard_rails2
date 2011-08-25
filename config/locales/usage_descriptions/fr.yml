@@ -10,13 +10,13 @@ fr:
 
   super_usage_question1: Quels documents allez-vous réaliser ?
 
-  selection_step_sideinfo_super_usage_1: |
+  form_first_step_sideinfo_super_usage_1: |
     <h5>Les documents simples</h5>
     <p>Vous rédigez principalement de courts textes ou des feuilles de calcul simples ? Il n'y a pas besoin de beaucoup de puissance, mais un écran correct est bien plus confortable.</p>
     <h5>Les documents avancés</h5>
     <p>Choisissez cette option si vous faites de longs rapports illustrés, des présentations animées ou manipulez régulièrement des feuilles de calcul complexes. Un processeur puissant et de la mémoire vive sont importants pour travailler avec fluidité.</p>
 
-  weight_step_question_super_usage_1: Écrivez-vous beaucoup ? Réalisez-vous beaucoup de présentations ?
+  form_second_step_question_super_usage_1: Écrivez-vous beaucoup ? Réalisez-vous beaucoup de présentations ?
   #--------------------
   # Usage 1
   #--------------------
@@ -36,7 +36,7 @@ fr:
 
   super_usage_question2: Que faites-vous sur le Web ?
 
-  selection_step_sideinfo_super_usage_2: |
+  form_first_step_sideinfo_super_usage_2: |
     <h5>Rechercher et consulter</h5>
     <p>Vous êtes avide d'information ? Vous consultez beaucoup d'articles ? Vous apprécierez d'avoir un bon confort visuel. </p>
     <h5>Échanger et participer</h5>
@@ -44,7 +44,7 @@ fr:
     <h5>Regarder et écouter</h5>
     <p>Vous utilisez Internet pour découvrir de nouveaux artistes ? Voir des vidéos ? On écartera les processeurs très peu performants.</p>
 
-  weight_step_question_super_usage_2: Utilisez-vous Internet intensivement ?
+  form_second_step_question_super_usage_2: Utilisez-vous Internet intensivement ?
 
   #--------------------
   # Usage 3
@@ -71,7 +71,7 @@ fr:
 
   super_usage_question3: Comment communiquez-vous ?
 
-  selection_step_sideinfo_super_usage_3: |
+  form_first_step_sideinfo_super_usage_3: |
     <h5>En écrivant</h5>
     <p>Pour utiliser l'email ou le tchat, tous les ordinateurs feront l'affaire. </p>
     <h5>En parlant</h5>
@@ -79,7 +79,7 @@ fr:
     <h5>En vidéo</h5>
     <p>Pour faire des visioconférences, une Webcam est indispensable.</p>
 
-  weight_step_question_super_usage_3: Voulez-vous avant tout un ordinateur pour communiquer ?
+  form_second_step_question_super_usage_3: Voulez-vous avant tout un ordinateur pour communiquer ?
 
   #--------------------
   # Usage 6
@@ -106,14 +106,14 @@ fr:
 
   super_usage_question4: Quel genre de joueur êtes-vous ?
 
-  selection_step_sideinfo_super_usage_4: |
+  form_first_step_sideinfo_super_usage_4: |
     <h5>Joueur occasionnel</h5>
     <p>Vous jouez à de petits jeux de détente ? La plupart des PC conviennent.</p>
     <h5>Joueur régulier</h5>
     <p>Vous voulez profiter de la majorité des jeux récents ? Il vous faut une carte graphique adaptée.</p>
     <h5>Joueur passionné</h5>
     <p>Fan de jeux 3D avec une fluidité parfaite et les détails au maximum ? Seuls les PC les plus puissants vous combleront.</p>
-  weight_step_question_super_usage_4: Voulez-vous surtout un PC pour jouer ?
+  form_second_step_question_super_usage_4: Voulez-vous surtout un PC pour jouer ?
 
   #--------------------
   # Usage 9
@@ -140,13 +140,13 @@ fr:
 
   super_usage_question5: Que souhaitez-vous faire de vos photos et de vos vidéos ?
 
-  selection_step_sideinfo_super_usage_5: |
+  form_first_step_sideinfo_super_usage_5: |
     <h5>Stocker, trier et consulter</h5>
     <p>Vous utilisez votre ordinateur comme un album photo ? La plupart des modèles du marché seront suffisants, tant qu'ils ont un bon écran. </p>
     <h5>Retoucher des images, monter des films</h5>
     <p>Vous êtes un artiste numérique ? Vous travaillez en profondeur vos photos, vos vidéos ? Il vous faut une station de travail très puissante, avec un grand écran.</p>
 
-  weight_step_question_super_usage_5: Consultez-vous ou retouchez-vous vos photos régulièrement ?
+  form_second_step_question_super_usage_5: Consultez-vous ou retouchez-vous vos photos régulièrement ?
 
   #--------------------
   # Usage 12
@@ -168,7 +168,7 @@ fr:
 
   super_usage_question6: Pour vous, le multimédia, c'est surtout...
 
-  selection_step_sideinfo_super_usage_6: |
+  form_first_step_sideinfo_super_usage_6: |
     <h5>Écouter de la musique</h5>
     <p>Une fois branchés sur vos enceintes, tous les PC du marché suffisent.</p>
     <h5>Regarder des films sur Blu-Ray</h5>
@@ -178,7 +178,7 @@ fr:
     <h5>Voir vos films sur votre ordinateur</h5>
     <p>Il vous faudra un écran de taille confortable pour profiter de vos films.</p>
 
-  weight_step_question_super_usage_6: Êtes-vous un grand amateur de multimédia ?
+  form_second_step_question_super_usage_6: Êtes-vous un grand amateur de multimédia ?
 
   #--------------------
   # Usage 14

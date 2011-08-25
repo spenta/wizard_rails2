@@ -3,23 +3,21 @@
 
 <div id="form_wrapper"> 
   <div id="main" class="usages first_page"> 
-    <h1><%= t_safe  "selection_step_title"%></h1>
-    <p class="explain usageSubtitle"><%= t_safe "selection_step_subtitle" %></p>
-    <div class="sideinfo" id="myFormInfoContainer">
-      <%= t_safe "selection_step_sideinfo" %>
-    </div>
-    <%= form_tag(choose_usages_path, :class => 'tabbed') do%>
+    <%= render 'title_and_sideinfo', :page_number => 'first' %>
+    <%= form_tag(choose_usages_path, :class => 'tabbed') do %>
       <% @super_usages.each do |su|  %>
         <%= content_tag :div, :id=>"super_usage_#{su.id}", :class => 'question' do%>
           <span class="qicon"></span>
           <div class="qbody">
-            <div class="qname"><h2 class="usageTitle"><%=t_safe "super_usage_title_#{su.id}"%></h2></div>
+            <div class="qname">
+              <h2 class="usageTitle"><%=t_safe "super_usage_title_#{su.id}"%></h2>
+            </div>
             <div class="qdesc">
               <h3 class="usageSubQuestion"><%=t_safe "super_usage_question_#{su.id}"%></h3>
-              <p class="usageExplain"><%=t :selection_step_hint %></p>
+              <p class="usageExplain"><%=t :form_first_step_hint %></p>
             </div>
             <div class="qinfo">
-              <%= t_safe "selection_step_sideinfo_super_usage_#{su.id}" %>
+              <%= t_safe "form_first_step_sideinfo_super_usage_#{su.id}" %>
             </div>
             <div class="answer multichoice">
               <% su.usages.each do |u|  %>

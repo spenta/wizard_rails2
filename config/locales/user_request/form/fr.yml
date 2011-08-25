@@ -1,20 +1,23 @@
 fr:
-  selection_step_title: Étape 1/3 - Qu'allez-vous faire avec votre ordinateur ?
+  #-----------
+  # first step
+  #-----------
+  form_first_step_title: Étape 1/3 - Qu'allez-vous faire avec votre ordinateur ?
 
-  selection_step_subtitle: Choisissez et renseignez seulement les usages qui vous intéressent.
+  form_first_step_subtitle: Choisissez et renseignez seulement les usages qui vous intéressent.
 
-  selection_step_sideinfo: |
+  form_first_step_sideinfo: |
     <h5>Trouver le meilleur ordinateur </h5>
     <p>Le meilleur ordinateur, c'est celui qui fait bien <strong>tout ce que vous voulez</strong>, au bon prix. Ce n'est pas le même pour tout le monde !</p>
     <p>Le conseiller virtuel analyse vos besoins pour vous donner un conseil <strong>personnalisé</strong> et <strong>objectif</strong>.</p>
     <h5>Dites-nous toutes vos envies</h5>
     <p>Choisissez tout ce que vous allez faire avec votre ordinateur, même si ça ne vous paraît pas très important. Vous pourrez faire le tri de ce qui compte vraiment à l'étape suivante.</p>
 
-  selection_step_hint: Cochez ce qui vous intéresse puis validez.
+  form_first_step_hint: Cochez ce qui vous intéresse puis validez.
 
-  selection_step_validate: Valider
+  form_first_step_validate: Valider
 
-  selection_step_dont_care: Cela ne m&acute;int&eacute;resse pas
+  form_first_step_dont_care: Cela ne m&acute;int&eacute;resse pas
 
   no_usage_selected_error: Veuillez sélectionner au moins un usage !
   usage_selection_error: Problème dans la sélection des usages !
@@ -22,3 +25,26 @@ fr:
   form_next_button_label: Suivant
 
   no_usage_selected_error: Veuillez sélectionner au moins un usage !
+  
+  #-----------
+  # second step
+  #-----------
+  form_second_step_title: Étape 2/3 - Qu'est-ce qui compte vraiment pour vous ?
+  form_second_step_subtitle: Indiquez l'importance de chaque utilisation en faisant glisser les curseurs, puis validez.
+  form_second_step_sideinfo: |
+    <h5>Ne mettez pas tout au maximum ! </h5>
+    <ul>
+    <li>Certaines utilisations demandent des PC puissants. <strong>Ne payez pas ce dont vous ne vous servez pas</strong> !</li>
+    <li>Le conseiller virtuel privilégie ce qui est important pour vous lorsqu'il faut faire des compromis.</li>
+    </ul>
+    <h5>Réfléchissez à ce qui est réellement important</h5>
+    <ul>
+    <li>Sur quoi allez vous passer <strong>beaucoup de temps</strong> ?</li>
+    <li>Où voulez-vous un <strong>confort optimal</strong> ?</li>
+    <li>Êtes-vous prêt à faire des <strong>compromis</strong> ?</li>
+
+  form_second_step_hint: Indiquez l'importance de chaque utilisation en faisant glisser les curseurs, puis validez.
+  form_second_step_wrong_choices: Une erreur est survenue dans l'enregistrement de vos choix. Veuillez nous en excuser
+  form_second_step_no_choices: Veuillez noter au moins un usage.
+  form_second_step_not_important: Peu important
+  form_second_step_very_important: Très important
