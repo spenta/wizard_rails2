@@ -4,7 +4,9 @@ gem 'thin'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
-gem 'pg'
+group :production do
+  gem 'pg'
+end
 #gem 'mysql2'
 gem 'sprockets', "2.0.0.beta13"
 
@@ -41,4 +43,4 @@ end
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 gem 'execjs'
-gem 'therubyracer'
+#gem 'therubyracer'
