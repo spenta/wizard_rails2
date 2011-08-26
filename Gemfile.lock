@@ -165,6 +165,7 @@ DEPENDENCIES
   coffee-script
   cucumber-rails
   database_cleaner
+  execjs
   factory_girl_rails
   jquery-rails
   pg
