@@ -4,8 +4,8 @@ gem 'thin'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
-
-gem 'mysql2'
+gem 'pg'
+#gem 'mysql2'
 gem 'sprockets', "2.0.0.beta13"
 
 # Gems used only for assets and not required
