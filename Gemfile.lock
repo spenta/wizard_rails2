@@ -174,7 +174,6 @@ DEPENDENCIES
   coffee-rails (~> 3.1.0.rc)
   cucumber-rails
   database_cleaner
-  execjs
   factory_girl_rails
   jquery-rails
   pg
