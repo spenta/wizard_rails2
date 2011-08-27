@@ -15,7 +15,7 @@ gem 'sprockets', "2.0.0.beta13"
 group :assets do
   gem 'sass-rails', "~> 3.1.0.rc"
   gem 'coffee-script'
-  gem 'uglifier'
+  #gem 'uglifier'
 end
 
 gem 'jquery-rails'
