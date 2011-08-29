@@ -18,12 +18,12 @@ end
 
 gem 'jquery-rails'
 
-group :test, :development do
+group :test, :development, :cucumber do
   gem 'rspec-rails'
   gem 'spork', '~> 0.9.0.rc'
 end
 
-group :test do
+group :test, :cucumber do
   gem 'cucumber-rails'
   gem 'factory_girl_rails'
   gem 'capybara'
@@ -31,6 +31,7 @@ group :test do
   gem 'sqlite3'
   # Pretty printed test output
   gem 'turn', :require => false
+  gem 'webrat' 
 end
 # Use unicorn as the web server
 # gem 'unicorn'

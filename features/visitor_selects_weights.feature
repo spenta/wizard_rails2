@@ -19,9 +19,14 @@ Feature: visitor selects weights
     Then I should see only the super usage "Bureautique"
     And the weight of "Bureautique" should be 50
 
-  @current
   @javascript
   Scenario: come back to the first step of the form
     When I click on "back"
     Then I should be on the first page of the form
     And the "Bureautique" super usage should be validated
+
+  @current
+  @javascript
+  Scenario: click on next with all the weights to 0
+    When I click on "next page"
+    Then I should see an error message

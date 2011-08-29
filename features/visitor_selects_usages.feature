@@ -61,7 +61,6 @@ Feature: visitor selects usages
     And I click on the "Bureautique" super usage
     Then I should not see an error message
 
-  @current
   @javascript
   Scenario: go to next page with one usage selected
     When I click on the "Bureautique" super usage
