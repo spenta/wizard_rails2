@@ -1,16 +1,20 @@
 class UserRequestsController < ActionController::Base
   layout 'application'
+  before_filter :assign_usage_choices, :only => [:first_step, :second_step]
+
+  def new_request
+    reset_session
+    redirect_to form_first_step_path
+  end
 
   def first_step
     @super_usages = SuperUsage.all_except_mobilities
+    @selected_usages = selected_usages
   end
 
   def second_step
-    if validate_usage_choices(session[:usage_choices])
-      @usage_choices = session[:usage_choices] 
-    else
-      session[:usage_choices] = nil
-      redirect_to form_first_step_path
+    if @usage_choices.nil?
+      redirect_to new_request_path
     end
   end
 
@@ -34,6 +38,28 @@ class UserRequestsController < ActionController::Base
   end
 
   private
+
+  def selected_usages
+    result = []
+    unless @usage_choices.nil?
+      @usage_choices.each_value do |super_usage_value|
+        super_usage_value["selected_usages"].split(', ').each do |usage_id|
+          result << usage_id.to_i
+        end
+      end
+    end
+    result
+  end
+
+  def assign_usage_choices
+    unless session[:usage_choices].nil?
+      if validate_usage_choices(session[:usage_choices])
+        @usage_choices = session[:usage_choices] 
+      else
+        redirect_to new_request_path and return
+      end
+    end
+  end
 
   def chosen_usages
     result = []

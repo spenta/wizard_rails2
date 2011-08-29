@@ -1,4 +1,7 @@
 fr:
+  form_next_button_label: Suivant
+  form_back_button_label: Précédent
+
   #-----------
   # first step
   #-----------
@@ -22,9 +25,9 @@ fr:
   no_usage_selected_error: Veuillez sélectionner au moins un usage !
   usage_selection_error: Problème dans la sélection des usages !
 
-  form_next_button_label: Suivant
 
   no_usage_selected_error: Veuillez sélectionner au moins un usage !
+  invalid_session_error: Une erreur est survenue. Merci de recommencer.
   
   #-----------
   # second step

@@ -4,7 +4,7 @@
 <div id="form_wrapper"> 
   <div id="main" class="usages second_page"> 
     <%= render 'title_and_sideinfo', :page_number => 'second' %>
-    <%= form_tag(:root, :class => 'tabbed') do %>
+    <%= form_tag(:root) do %>
       <% @usage_choices.each do |super_usage_key, super_usage_value|  %>
         <%= content_tag :div, :id=>super_usage_key, :class => 'question' do%>
           <%# REFACTORISER  ET FINIR LES WEIGHTS!!!  %>
@@ -18,10 +18,10 @@
             </div>
 
             <div class="answer">
-              <select class="slider nosnap" name='<%= "super_usage_weight_#{su_id}" %>'>
+              <select class="slider nosnap" name='<%= "super_usage_weight_#{su_id}" %>' id='<%= "super_usage_weight_#{su_id}" %>' >
                 <option value="0"><%= t :form_second_step_not_important %></option>
                 <option value=""></option>
-                <option value="50" selected="selected"></option>
+                <option value="<%= super_usage_value['weight'] %>" selected="selected"></option>
                 <option value=""></option>
                 <option value="100"><%= t :form_second_step_very_important %></option>
               </select>
@@ -31,7 +31,7 @@
       <% end  %>
       <div class="clearfix"></div>
       <div class="actions">
-        <a href="/conseiller-virtuel/1290/questionnaire?back=true" class="prev-button">Précédent</a>
+        <%= link_to t(:form_back_button_label), form_first_step_path, :class => "prev-button" %>
         <%= submit_tag t(:form_next_button_label), :class => "next-button", :id => "next-button" %>
       </div>
       <% end %>

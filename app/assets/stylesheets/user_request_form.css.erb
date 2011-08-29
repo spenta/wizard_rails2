@@ -533,7 +533,7 @@ SEARCHING... POPUP
 	position:relative;
 
 	background:none;
-  background-image:url(<%= asset_path '/usages/slider-track.png' %>);
+  background-image:url(<%= asset_path 'usages/slider-track.png' %>);
 	background-repeat:repeat-x;
 	background-position:0px 11px;
 }
@@ -552,7 +552,7 @@ SEARCHING... POPUP
 
 	outline:none;
 
-  background-image:url(<%= asset_path '/usages/slider-thumb.png' %>);
+  background-image:url(<%= asset_path 'usages/slider-thumb.png' %>);
 	background-repeat:no-repeat;
 	background-position:0px 0px;
 }
@@ -576,7 +576,7 @@ SEARCHING... POPUP
 
 	cursor:pointer;
 
-  background-image:url(<%= asset_path '/usages/slider-step.png' %>);
+  background-image:url(<%= asset_path 'usages/slider-step.png' %>);
 	background-repeat:no-repeat;
 	background-position:top center;
 }
@@ -740,13 +740,13 @@ form.tabbed .question.button
 	cursor:pointer;
 }
 
-.question.button:hover {
+.first_page .question.button:hover {
   background-image:url(<%= asset_path 'usages/question_bckg_hover.png' %>);
 }
 
 form.tabbed .question.button .qinfo,
 form.tabbed .question.button .qdesc,
-form.tabbed .question.button .answer,
+.first_page form.tabbed .question.button .answer,
 form.tabbed .question.button .close
 {
 	display:none;

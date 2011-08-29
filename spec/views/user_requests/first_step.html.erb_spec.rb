@@ -10,6 +10,7 @@ describe 'user_requests/first_step.html.erb' do
       end
     end
     assign(:super_usages, SuperUsage.all_except_mobilities)
+    assign(:selected_usages, [1, 2])
   end
 
   it 'shows a form to submit a newly created user_request' do
@@ -27,6 +28,15 @@ describe 'user_requests/first_step.html.erb' do
     end
     mobility = SuperUsage.where(:name => 'Mobilite').first 
     rendered.should_not have_selector("div#super_usage_#{mobility.id}")
+  end
+
+  it 'selects usages which are in @selected_usages' do
+    assign(:selected_usages, [1, 2])
+    render
+    rendered.should have_xpath("//input[@type=\'checkbox\' and @checked=\'checked'\]", :count => 2)
+    [1, 2].each do |usage_id|
+      rendered.should have_xpath("//input[@id=\'usage_#{usage_id}\' and @checked=\'checked\']")
+    end
   end
 
 end

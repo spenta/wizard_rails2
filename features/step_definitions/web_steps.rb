@@ -57,6 +57,8 @@ When /^I click on "([^"]*)"/ do |name|
     page.find('.question.opened .validate').click
   when "next page"
     click_button("next-button")
+  when "back"
+    page.find('.prev-button').click
   else
     raise "not a valid destination"
   end
@@ -132,4 +134,9 @@ Then /^I should see only the super usage "([^"]*)"$/ do |super_usage_name|
   SuperUsage.all.each do |su|
     page.should_not have_css("#super_usage_#{su.id}") unless su.id == selected_super_usage.id
   end
+end
+
+Then /^the weight of "([^"]*)" should be (\d+)$/ do |super_usage_name, weight|
+  super_usage = SuperUsage.find_by_name super_usage_name
+  page.should have_xpath("//select[@id = \"super_usage_weight_#{super_usage.id}\"]/option[@value = \"#{weight}\"]")
 end

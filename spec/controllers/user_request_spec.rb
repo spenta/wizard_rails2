@@ -19,6 +19,20 @@ describe UserRequestsController do
     Usage.reset
   end
 
+  describe 'GET new_request' do
+    it 'reset the session' do
+      usage_choices = {"super_usage_1 " => {"selected_usages" => "1, 2", "weight" => "23"}}
+      session["usage_choices"] = usage_choices
+      get :new_request
+      session.should eq({})
+    end
+
+    it 'redirects to the first step of the form' do
+      get :new_request
+      response.should redirect_to(form_first_step_path)
+    end
+  end
+
   describe 'GET first_step' do
     it 'assign all the super usages except mobilities as @super_usages' do
       SuperUsage.stub(:all_except_mobilities) {[mock_super_usage]}
@@ -30,37 +44,72 @@ describe UserRequestsController do
       get :first_step
       response.should render_template('first_step')
     end
+
+    context 'when session["usage_choices"] is corrupted' do
+      it 'resets the session via new_request' do
+        session["usage_choices"] = {"super_usage_10" => {"selected_usages" => "1, 2", "weight" => "23"}}
+        get :first_step
+        response.should redirect_to(new_request_path)
+      end
+    end
+
+    context 'when session["usage_choices] is valid' do
+      it 'assigns session["usage_choices"] to @usage_choices' do
+        usage_choices = {"super_usage_1 " => {"selected_usages" => "1, 2", "weight" => "23"}}
+        session["usage_choices"] = usage_choices
+        get :first_step
+        assigns[:usage_choices].should eq(usage_choices) 
+      end
+
+      it 'assign the usages in session["usage_choices"] to @selected_usages' do
+        usage_choices = {"super_usage_1 " => {"selected_usages" => "1, 2", "weight" => "23"}}
+        session["usage_choices"] = usage_choices
+        get :first_step
+        assigns[:selected_usages].should eq([1, 2])
+      end
+    end
+
   end
 
   describe 'GET second_step' do
-    context 'when session["usage_choices"] is corrupted'
-    it 'redirects to the first page of the wizard with a clean session["usage_choices"] and an error message' do
-      session["usage_choices"] = {"super_usage_10" => {"selected_usages" => "1, 2", "weight" => "23"}}
-      get :second_step
-      assigns[:usage_choices].should be_nil 
-      response.should redirect_to(form_first_step_path)
+    context 'when session["usage_choices"] is corrupted' do
+      it 'redirects to the first page of the wizard with a clean session via new_request' do
+        session["usage_choices"] = {"super_usage_10" => {"selected_usages" => "1, 2", "weight" => "23"}}
+        get :second_step
+        response.should redirect_to(new_request_path)
 
-      session["usage_choices"] = {"super_usage_1" => {"selected_usages" => "7", "weight" => "23"}}
-      get :second_step
-      assigns[:usage_choices].should be_nil 
-      response.should redirect_to(form_first_step_path)
+        session["usage_choices"] = {"super_usage_1" => {"selected_usages" => "7", "weight" => "23"}}
+        get :second_step
+        response.should redirect_to(new_request_path)
 
-      session["usage_choices"] = {"super_usage_1" => {"selected_usages" => "1, 2", "weight" => "230"}}
-      get :second_step
-      assigns[:usage_choices].should be_nil 
-      response.should redirect_to(form_first_step_path)
 
-      #spelling mistake on selectd_usages
-      session["usage_choices"] = {"super_usage_1 " => {"selected_uages" => "1, 2", "weight" => "23"}}
-      get :second_step
-      assigns[:usage_choices].should be_nil 
-      response.should redirect_to(form_first_step_path)
+        session["usage_choices"] = {"super_usage_1" => {"selected_usages" => "1, 2", "weight" => "230"}}
+        get :second_step
+        response.should redirect_to(new_request_path)
+
+
+        #spelling mistake on selectd_usages
+        session["usage_choices"] = {"super_usage_1 " => {"selected_uages" => "1, 2", "weight" => "23"}}
+        get :second_step
+        assigns[:usage_choices].should be_nil 
+        response.should redirect_to(new_request_path)
+
+      end
     end
 
-    it 'renders the second_step template' do
-      session["usage_choices"] = {"super_usage_1 " => {"selected_usages" => "1, 2", "weight" => "23"}}
-      get :second_step
-      response.should render_template('second_step')
+    context 'when at least one usage is choosen' do
+      it 'assign session["usage_choices"] to @usage_choices' do
+        usage_choices = {"super_usage_1 " => {"selected_usages" => "1, 2", "weight" => "23"}}
+        session["usage_choices"] = usage_choices
+        get :second_step
+        assigns[:usage_choices].should eq(usage_choices) 
+      end
+
+      it 'renders the second_step template' do
+        session["usage_choices"] = {"super_usage_1 " => {"selected_usages" => "1, 2", "weight" => "23"}}
+        get :second_step
+        response.should render_template('second_step')
+      end
     end
   end
 

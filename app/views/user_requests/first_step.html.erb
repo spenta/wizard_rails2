@@ -22,7 +22,8 @@
             <div class="answer multichoice">
               <% su.usages.each do |u|  %>
                 <label>
-                  <%= check_box_tag "usage_#{u.id}", 1, false %>
+                  <% @selected_usages.include?(u.id) ? checked=true : checked=false  %>
+                  <%= check_box_tag "usage_#{u.id}", 1, checked %>
                   <%= content_tag :span, t_safe("usage_title_#{u.id}"), :class => "name usage_name usage_name_#{u.id}"%>
                   <span class="desc"><%=t_safe "usage_description_#{u.id}"%></span>
                 </label>
@@ -36,7 +37,7 @@
         <%= submit_tag t(:form_next_button_label), :class => "next-button", :id => "next-button" %>
       </div>
     <% end  %>
-    <% if flash[:error] %>
+    <% if flash[:error]=="no_valid_usages" %>
       <p class="warning"><%= t :no_usage_selected_error %></p>
     <% end  %>
     <div class="clearfix"></div>

@@ -17,3 +17,11 @@ Feature: visitor selects weights
   Scenario: see only the chosen usages
     When I do nothing
     Then I should see only the super usage "Bureautique"
+    And the weight of "Bureautique" should be 50
+
+  @current
+  @javascript
+  Scenario: come back to the first step of the form
+    When I click on "back"
+    Then I should be on the first page of the form
+    And the "Bureautique" super usage should be validated

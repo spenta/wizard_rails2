@@ -43,7 +43,8 @@ return this.each(function()
 	checkbox.hide();
 
 	// update the current style
-	//update(checkbox.attr('checked'));
+  
+	update(checkbox.attr('checked'));
 
 	//----------------------------------
 	//  clickHandler
@@ -79,7 +80,7 @@ return this.each(function()
 
 	// event listener
 	function unselectHandler(e, fromUserInteraction) {
-		update(false);
+		update(undefined);
 	}
 
 	//----------------------------------
@@ -89,10 +90,17 @@ return this.each(function()
 	// helper : update the style and the checkbox selection
 	function update(selected)
 	{
-		// toggle the 'selected' class
-		$this.toggleClass('selected', selected);
-		// (un)check the original checkbox
-		checkbox.attr('checked', selected);
+    if (selected == undefined) {
+      // remove the 'selected' class
+      $this.removeClass('selected');
+      // uncheck the original checkbox
+      checkbox.removeAttr('checked');
+    } else {
+      // add the 'selected' class
+      $this.addClass('selected');
+      // uncheck the original checkbox
+      checkbox.attr('checked', 'checked');
+    }
 	}
 
 }); // end of return this.each...
