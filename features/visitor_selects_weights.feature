@@ -31,7 +31,6 @@ Feature: visitor selects weights
     And I click on "next page"
     Then I should see an error message
 
-  @current
   @javascript
   Scenario: click on next page
     When I click on "next page"

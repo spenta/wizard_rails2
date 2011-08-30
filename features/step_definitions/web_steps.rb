@@ -77,6 +77,19 @@ When /^I choose the "([^"]*)" usage$/ do |usage_name|
   end
 end
 
+When /^I set the weight for the super usage "([^"]*)" to (\d+)$/ do |super_usage_name, weight|
+  super_usage = SuperUsage.find_by_name super_usage_name
+  handler = page.find("#super_usage_#{super_usage.id} .ui-slider-handle")
+  case weight
+  when "0"
+    # drag the handle to the super usage icon to the left  to simulate a drag and drop to the left end of the slider
+    target = page.find(".qicon")
+    handler.drag_to(target)
+  else
+    raise "no action defined for this weight"
+  end
+end
+
 # -------------------------------------------------
 # Then
 # -------------------------------------------------
@@ -141,15 +154,8 @@ Then /^the weight of "([^"]*)" should be (\d+)$/ do |super_usage_name, weight|
   page.should have_xpath("//select[@id = \"super_usage_weight_#{super_usage.id}\"]/option[@value = \"#{weight}\"]")
 end
 
-When /^I set the weight for the super usage "([^"]*)" to (\d+)$/ do |super_usage_name, weight|
-  super_usage = SuperUsage.find_by_name super_usage_name
-  handler = page.find("#super_usage_#{super_usage.id} .ui-slider-handle")
-  case weight
-  when "0"
-    # drag the handle to the super usage icon to the left  to simulate a drag and drop to the left end of the slider
-    target = page.find(".qicon")
-    handler.drag_to(target)
-  else
-    raise "no action defined for this weight"
+Then /^I should see all the mobilities$/ do
+  Usage.all_mobilities.each do |m|
+    page.should have_css("mobility_#{m.id}")
   end
 end

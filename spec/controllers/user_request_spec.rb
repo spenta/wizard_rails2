@@ -86,6 +86,16 @@ describe UserRequestsController do
     end
   end
 
+  describe 'GET third_step' do
+    context 'when session["mobility_choices"] is invalid' do
+      it 'sets session["mobility_choices"] to nil'
+    end
+    context 'when session["mobility_choices"] is valid' do
+      it 'builds @mobility_choices and assigns it'
+      it 'renders the third step template'
+    end
+  end
+
   describe 'POST choose_usages' do
     context 'when at least one valid usage is choosen' do
       it 'creates a new usage_choices in session with weight_for_user equal to 50 for chosen super usages' do
@@ -173,8 +183,13 @@ describe UserRequestsController do
   end
 
   describe 'validate_usage_choices' do
-    it 'returns true usage_choices is well-formed and values are valid' do
-      controller.validate_usage_choices(bureautique_usage_choices).should be_true
+    it 'returns true if usage_choices is well-formed and values are valid' do
+      valid_usage_choices = {
+        "super_usage_1"=>{"selected_usages"=>"1, 2","weight"=>"23"},
+        "super_usage_2"=>{"selected_usages"=>"3, 4","weight"=>"0"},
+        "super_usage_3"=>{"selected_usages"=>"5, 6","weight"=>"100"}
+      }
+      controller.validate_usage_choices(valid_usage_choices).should be_true
     end
     it 'returns false if usage_choices is not well-formed' do
       #spelling mistake on selected_usages
@@ -197,6 +212,26 @@ describe UserRequestsController do
       controller.validate_usage_choices(usage_choices).should be_false
     end
   end
+
+  describe 'validate_mobility_choices' do
+    it 'returns true if mobility_choices is well-formed and values are valid' do
+      controller.validate_mobility_choices(valid_mobility_choices_with_one_choice).should be_true
+      controller.validate_mobility_choices(valid_mobility_choices_with_two_choices).should be_true
+    end
+    it 'returns false if mobility_choices is not well-formed' do
+      #space after mobility_7
+      mobility_choices = {"mobility_7 "=>"10"}
+      controller.validate_mobility_choices(mobility_choices).should be_false
+    end
+    it 'returns false if mobility_choices has invalid super_usages' do
+      mobility_choices = {"mobility_1"=>"10"}
+      controller.validate_mobility_choices(mobility_choices).should be_false
+    end
+    it 'returns false if usage_choices has an invalid weight' do
+      mobility_choices = {"mobility_1"=>"-10"}
+      controller.validate_mobility_choices(mobility_choices).should be_false
+    end
+  end
 end
 
 private
@@ -207,4 +242,12 @@ end
 
 def bureautique_usage_choices
   usage_choices = {"super_usage_1"=>{"selected_usages"=>"1, 2","weight"=>"23"}}
+end
+
+def valid_mobility_choices_with_one_choice
+  mobility_choices = {"mobility_7"=>"10"}
+end
+
+def valid_mobility_choices_with_two_choices
+  mobility_choices = {"mobility_7"=>"10", "mobility_8"=>"14"}
 end

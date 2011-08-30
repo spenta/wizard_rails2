@@ -208,19 +208,19 @@ fr:
   # Mobility 18
   #--------------------
   mobility_title_18: Hors de chez vous
-  mobilities_step_question_mobility_18: |
+  form_third_step_question_mobility_18: |
     Utilisez-vous votre PC en <strong>rendez-vous</strong>, <strong>dans le train</strong>, en <strong>vacances</strong> ?
 
   #--------------------
   # Mobility 19
   #--------------------
   mobility_title_19: À la maison
-  mobilities_step_question_mobility_19: |
+  form_third_step_question_mobility_19: |
     D&eacute;placez-vous beaucoup votre ordinateur <strong>d'une pi&egrave;ce &agrave; l'autre</strong> ?
 
   #--------------------
   # Mobility 20
   #--------------------
   mobility_title_20: Dans les transports
-  mobilities_step_question_mobility_20: |
+  form_third_step_question_mobility_20: |
     <strong>Portez-vous</strong> beaucoup votre ordinateur, en marchant ou dans le bus ?

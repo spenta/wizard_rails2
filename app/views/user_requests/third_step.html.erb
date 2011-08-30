@@ -3,24 +3,24 @@
 
 <div id="form_wrapper"> 
   <div id="main" class="usages third_page"> 
-    <%= render 'title_and_sideinfo', :page_number => 'second' %>
-    <%= form_tag(choose_weights_path) do %>
-      <% @usage_choices.each do |super_usage_key, super_usage_value|  %>
-        <%= content_tag :div, :id=>super_usage_key, :class => 'question' do%>
-          <% su_id = super_usage_key.split('_').last  %>
+    <%= render 'title_and_sideinfo', :page_number => 'third' %>
+    <%= form_tag(:root) do %>
+      <% @mobility_choices.each do |mobility_key, mobility_value|  %>
+        <%= content_tag :div, :id=>mobility_key, :class => 'question' do%>
+          <% mobility_id = mobility_key.split('_').last  %>
           <span class="qicon"></span> 
           <div class="qbody">
 
             <div class="qname">
-              <h2 class="usageTitle"><%=t_safe "super_usage_title_#{su_id}"%></h2>
-              <p class="weightExplain"><%= t_safe "form_second_step_question_super_usage_#{su_id}" %></p>
+              <h2 class="usageTitle"><%=t_safe "mobility_#{mobility_id}"%></h2>
+              <p class="weightExplain"><%= t_safe "form_third_step_question_mobility_#{mobility_id}" %></p>
             </div>
 
             <div class="answer">
-              <select class="slider nosnap" name='<%= "super_usage_weight_#{su_id}" %>' id='<%= "super_usage_weight_#{su_id}" %>' >
+              <select class="slider nosnap" name='<%= "mobility_weight_#{mobility_id}" %>' id='<%= "mobility_weight_#{mobility_id}" %>' >
                 <option value="0"><%= t :form_second_step_not_important %></option>
                 <option value=""></option>
-                <option value="<%= super_usage_value['weight'] %>" selected="selected"></option>
+                <option value="<%= mobility_value %>" selected="selected"></option>
                 <option value=""></option>
                 <option value="100"><%= t :form_second_step_very_important %></option>
               </select>
@@ -30,7 +30,7 @@
       <% end  %>
       <div class="clearfix"></div>
       <div class="actions">
-        <%= link_to t(:form_back_button_label), form_first_step_path, :class => "prev-button" %>
+        <%= link_to t(:form_back_button_label), form_second_step_path, :class => "prev-button" %>
         <%= submit_tag t(:form_next_button_label), :class => "next-button", :id => "next-button" %>
       </div>
       <% end %>
