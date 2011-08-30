@@ -30,3 +30,9 @@ Feature: visitor selects weights
     When I set the weight for the super usage "Bureautique" to 0
     And I click on "next page"
     Then I should see an error message
+
+  @current
+  @javascript
+  Scenario: click on next page
+    When I click on "next page"
+    Then I should be on the third page of the form

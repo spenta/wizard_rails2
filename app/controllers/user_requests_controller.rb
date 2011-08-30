@@ -1,6 +1,6 @@
 class UserRequestsController < ActionController::Base
   layout 'application'
-  before_filter :assign_usage_choices, :only => [:first_step, :second_step]
+  before_filter :assign_usage_choices, :only => [:first_step, :second_step, :third_step]
   attr_accessor :usage_choices
 
   def new_request
@@ -17,6 +17,9 @@ class UserRequestsController < ActionController::Base
     if @usage_choices.nil?
       redirect_to new_request_path
     end
+  end
+
+  def third_step
   end
 
   def choose_usages
@@ -41,12 +44,13 @@ class UserRequestsController < ActionController::Base
 
   def choose_weights
     at_least_one_weight = false
-    chosen_weights = params.select{|key, value| key =~ /^super_usage_[0-9]+$/ && value =~ /^\d+$/}
+    chosen_weights = params.select{|key, value| key =~ /^super_usage_weight_[0-9]+$/ && value =~ /^\d+$/}
     chosen_weights.each do |super_usage_key, weight_string|
       at_least_one_weight = true if weight_string.to_i > 0
+      session["usage_choices"][super_usage_key.gsub('_weight','')]["weight"]=weight_string
     end
     if at_least_one_weight
-      render 'pending'
+      redirect_to form_third_step_path
     else
       redirect_to form_second_step_path, :flash => {:error => "no_weights_greater_than_0"}
     end
@@ -94,6 +98,7 @@ class UserRequestsController < ActionController::Base
     #checks that session["usage_choices"] looks like
     # {"super_usage_1" => {"selected_usages" => "2", "weight" => "23"}}
     begin
+      throw "usage_choices not well-formed : #{usage_choices.to_s}" unless usage_choices.to_s =~ /^\{\"super_usage_\d+\"=>\{\"selected_usages\"=>\"\d(, \d)*\", \"weight\"=>\"\d+\"\}\}/
       usage_choices.each do |super_usage_key, super_usage_value|
         super_usage_id = super_usage_key.split('super_usage_').last.to_i
         throw "invalid mobilit-related super_usage" unless SuperUsage.all_except_mobilities_ids.include?(super_usage_id)

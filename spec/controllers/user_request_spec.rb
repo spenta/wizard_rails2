@@ -33,7 +33,6 @@ describe UserRequestsController do
   end
 
   describe 'GET first_step' do
-
     context 'when session["usage_choices"] is corrupted' do
       it 'resets the session via new_request' do
         controller.stub(:validate_usage_choices) {false}
@@ -63,7 +62,6 @@ describe UserRequestsController do
         response.should render_template('first_step')
       end
     end
-
   end
 
   describe 'GET second_step' do
@@ -117,9 +115,19 @@ describe UserRequestsController do
   describe 'POST choose_weights' do
     context 'when all the weights are 0' do
       it 'redirects to the second page of the wizard with a message saying that at leat one weight should be greater than 0' do
-        post :choose_weights, :super_usage_1 => "0"
+        post :choose_weights, :super_usage_1=> "0"
         response.should redirect_to(form_second_step_path)
         flash[:error].should eq("no_weights_greater_than_0")
+      end
+    end
+    context 'when at least one weight is > 0' do
+      it 'updates the session["usage_choices"] accordingly' do
+        post :choose_weights, :super_usage_weight_1=>"40"
+        session["usage_choices"]["super_usage_1"]["weight"].should eq("40")
+      end
+      it 'redirects to the third page of the form' do
+        post :choose_weights, :super_usage_weight_1=> "40"
+        response.should redirect_to(form_third_step_path)
       end
     end
   end
@@ -169,20 +177,23 @@ describe UserRequestsController do
       controller.validate_usage_choices(bureautique_usage_choices).should be_true
     end
     it 'returns false if usage_choices is not well-formed' do
-      #spelling mistake on selectd_usages
-      usage_choices = {"super_usage_1 " => {"selected_uages" => "1, 2", "weight" => "23"}}
+      #spelling mistake on selected_usages
+      usage_choices = {"super_usage_1" => {"selected_uages" => "1, 2", "weight" => "23"}}
+      controller.validate_usage_choices(usage_choices).should be_false
+      #space after super_usage_1
+      usage_choices = {"super_usage_1 " => {"selected_usages" => "1, 2", "weight" => "23"}}
       controller.validate_usage_choices(usage_choices).should be_false
     end
     it 'returns false if usage_choices has invalid super_usages' do
-      usage_choices = {"super_usage_100 " => {"selected_usages" => "1, 2", "weight" => "23"}}
+      usage_choices = {"super_usage_100" => {"selected_usages" => "1, 2", "weight" => "23"}}
       controller.validate_usage_choices(usage_choices).should be_false
     end
     it 'returns false if usage_choices associates wrong usages to super_usages' do
-      usage_choices = {"super_usage_1 " => {"selected_usages" => "3, 5", "weight" => "23"}}
+      usage_choices = {"super_usage_1" => {"selected_usages" => "3, 5", "weight" => "23"}}
       controller.validate_usage_choices(usage_choices).should be_false
     end
     it 'returns false if usage_choices has an invalid weight' do
-      usage_choices = {"super_usage_1 " => {"selected_usages" => "1, 2", "weight" => "239"}}
+      usage_choices = {"super_usage_1" => {"selected_usages" => "1, 2", "weight" => "239"}}
       controller.validate_usage_choices(usage_choices).should be_false
     end
   end
@@ -195,5 +206,5 @@ def mock_super_usage
 end
 
 def bureautique_usage_choices
-  usage_choices = {"super_usage_1 " => {"selected_usages" => "1, 2", "weight" => "23"}}
+  usage_choices = {"super_usage_1"=>{"selected_usages"=>"1, 2","weight"=>"23"}}
 end
