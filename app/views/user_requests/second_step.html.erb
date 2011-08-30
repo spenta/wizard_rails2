@@ -34,9 +34,6 @@
         <%= submit_tag t(:form_next_button_label), :class => "next-button", :id => "next-button" %>
       </div>
       <% end %>
-      <% if flash[:error]=="no_weights_greater_than_0" %>
-        <p class="warning"><%= t :no_weights_greater_than_0_error %></p>
-      <% end  %>
     <div class="clearfix"></div>
   </div>
 </div>

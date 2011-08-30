@@ -37,9 +37,6 @@
         <%= submit_tag t(:form_next_button_label), :class => "next-button", :id => "next-button" %>
       </div>
     <% end  %>
-    <% if flash[:error]=="no_valid_usages" %>
-      <p class="warning"><%= t :no_usage_selected_error %></p>
-    <% end  %>
     <div class="clearfix"></div>
   </div>
 </div>

@@ -2,4 +2,9 @@
 <p class="explain usageSubtitle"><%= t_safe "form_#{page_number}_step_subtitle" %></p>
 <div class="sideinfo" id="myFormInfoContainer">
   <%= t_safe "form_#{page_number}_step_sideinfo" %>
+  <% if flash[:error]=="no_weights_greater_than_0" %>
+    <p class="warning"><%= t :no_weights_greater_than_0_error %></p>
+  <% elsif flash[:error]=="no_valid_usages" %>
+    <p class="warning"><%= t :no_usage_selected_error %></p>
+  <% end  %>
 </div>
