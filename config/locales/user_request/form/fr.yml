@@ -51,3 +51,5 @@ fr:
   form_second_step_no_choices: Veuillez noter au moins un usage.
   form_second_step_not_important: Peu important
   form_second_step_very_important: Très important
+
+  no_weights_greater_than_0_error: Au moins un usage doit avoir une importance !

@@ -4,10 +4,9 @@
 <div id="form_wrapper"> 
   <div id="main" class="usages second_page"> 
     <%= render 'title_and_sideinfo', :page_number => 'second' %>
-    <%= form_tag(:root) do %>
+    <%= form_tag(choose_weights_path) do %>
       <% @usage_choices.each do |super_usage_key, super_usage_value|  %>
         <%= content_tag :div, :id=>super_usage_key, :class => 'question' do%>
-          <%# REFACTORISER  ET FINIR LES WEIGHTS!!!  %>
           <% su_id = super_usage_key.split('_').last  %>
           <span class="qicon"></span> 
           <div class="qbody">
@@ -35,6 +34,9 @@
         <%= submit_tag t(:form_next_button_label), :class => "next-button", :id => "next-button" %>
       </div>
       <% end %>
+      <% if flash[:error]=="no_weights_greater_than_0" %>
+        <p class="warning"><%= t :no_weights_greater_than_0_error %></p>
+      <% end  %>
     <div class="clearfix"></div>
   </div>
 </div>

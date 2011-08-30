@@ -1,6 +1,7 @@
 class UserRequestsController < ActionController::Base
   layout 'application'
   before_filter :assign_usage_choices, :only => [:first_step, :second_step]
+  attr_accessor :usage_choices
 
   def new_request
     reset_session
@@ -20,7 +21,7 @@ class UserRequestsController < ActionController::Base
 
   def choose_usages
     usage_choices = {}
-    chosen_usages.each do |usage_id|
+    chosen_usages(params).each do |usage_id|
       usage = Usage.find(usage_id)
       super_usage_key = "super_usage_#{usage.super_usage_id}"
       usage_choices[super_usage_key] ||= {}
@@ -30,6 +31,7 @@ class UserRequestsController < ActionController::Base
       usage_choices[super_usage_key]["weight"] = "50"
     end
     if usage_choices.empty?
+      session[:usage_choices] = nil
       redirect_to :form_first_step, :flash => {:error => "no_valid_usages"}
     else
       session[:usage_choices] = usage_choices
@@ -37,7 +39,20 @@ class UserRequestsController < ActionController::Base
     end
   end
 
-  private
+  def choose_weights
+    at_least_one_weight = false
+    chosen_weights = params.select{|key, value| key =~ /^super_usage_[0-9]+$/ && value =~ /^\d+$/}
+    chosen_weights.each do |super_usage_key, weight_string|
+      at_least_one_weight = true if weight_string.to_i > 0
+    end
+    if at_least_one_weight
+      render 'pending'
+    else
+      redirect_to form_second_step_path, :flash => {:error => "no_weights_greater_than_0"}
+    end
+  end
+
+  #helpers
 
   def selected_usages
     result = []
@@ -56,15 +71,16 @@ class UserRequestsController < ActionController::Base
       if validate_usage_choices(session[:usage_choices])
         @usage_choices = session[:usage_choices] 
       else
-        redirect_to new_request_path and return
+        session[:usage_choices] = nil
+        redirect_to new_request_path and return if response
       end
     end
   end
 
-  def chosen_usages
+  def chosen_usages params
     result = []
     params.each_key do |key|
-      result << key.split('_').last if (key =~ /^usage_[0-9]+$/ && is_valid_usage(key))
+      result << key.split('_').last.to_i if (key =~ /^usage_[0-9]+$/ && is_valid_usage(key))
     end
     result
   end

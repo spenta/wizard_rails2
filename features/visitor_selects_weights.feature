@@ -25,8 +25,8 @@ Feature: visitor selects weights
     Then I should be on the first page of the form
     And the "Bureautique" super usage should be validated
 
-  @current
   @javascript
   Scenario: click on next with all the weights to 0
-    When I click on "next page"
+    When I set the weight for the super usage "Bureautique" to 0
+    And I click on "next page"
     Then I should see an error message
