@@ -107,7 +107,7 @@ class UserRequestsController < ActionController::Base
     #checks that usage_choices looks like
     # {"super_usage_1" => {"selected_usages" => "2", "weight" => "23"}}
     begin
-      throw "usage_choices not well-formed : #{usage_choices.to_s}" unless usage_choices.to_s =~ /\{(\"super_usage_\d+\"=>\{\"selected_usages\"=>\"\d(, \d)*\", \"weight\"=>\"\d+\"\}(, )?)+\}/
+      throw "usage_choices not well-formed : #{usage_choices.to_s}" unless usage_choices.to_s =~ /\{(\"super_usage_\d+\"=>\{\"selected_usages\"=>\"\d+(, \d+)*\", \"weight\"=>\"\d+\"\}(, )?)+\}/
       usage_choices.each do |super_usage_key, super_usage_value|
         super_usage_id = super_usage_key.split('super_usage_').last.to_i
         throw "invalid mobilit-related super_usage" unless SuperUsage.all_except_mobilities_ids.include?(super_usage_id)
