@@ -20,6 +20,15 @@ class UserRequestsController < ActionController::Base
   end
 
   def third_step
+    session["mobility_choices"] = nil if !validate_mobility_choices(session["mobility_choices"])
+    @mobility_choices = {}
+    if session["mobility_choices"].nil?
+      Usage.all_mobilities_ids.each {|mobility_id| @mobility_choices[mobility_id] = 0}
+    else
+      Usage.all_mobilities_ids.each do |mobility_id|
+        @mobility_choices[mobility_id] = session["mobility_choices"]["mobility_#{mobility_id}"].to_i || 0
+      end
+    end
   end
 
   def choose_usages

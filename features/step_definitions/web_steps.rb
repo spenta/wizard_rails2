@@ -156,6 +156,11 @@ end
 
 Then /^I should see all the mobilities$/ do
   Usage.all_mobilities.each do |m|
-    page.should have_css("mobility_#{m.id}")
+    page.should have_css("#mobility_#{m.id}")
   end
+end
+
+Then /^the weight of the "([^"]*)" mobility should be (\d+)$/ do |mobility_name, weight|
+  mobility = Usage.find_by_name mobility_name
+  page.should have_xpath("//select[@id = \"mobility_weight_#{mobility.id}\"]/option[@value = \"#{weight}\"]")
 end

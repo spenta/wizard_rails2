@@ -19,6 +19,5 @@ Feature: visitor selects mobilities
   Scenario: see all the mobilities
     When I do nothing
     Then I should see all the mobilities
-    And the weight of the "Deplacement" mobility should be 0
-    And the weight of the "Nomadisme" mobility should be 0
-    And the weight of the "Transports" mobility should be 0
+    And the weight of the "Mobilite_1" mobility should be 0
+    And the weight of the "Mobilite_2" mobility should be 0

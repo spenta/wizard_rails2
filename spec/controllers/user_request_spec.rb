@@ -13,6 +13,7 @@ describe UserRequestsController do
       super_usage_id += 1
     end
     session["usage_choices"] = bureautique_usage_choices
+    session["mobility_choices"] = valid_mobility_choices_with_one_choice
   end
 
   after(:each) do
@@ -88,11 +89,38 @@ describe UserRequestsController do
 
   describe 'GET third_step' do
     context 'when session["mobility_choices"] is invalid' do
-      it 'sets session["mobility_choices"] to nil'
+      it 'sets session["mobility_choices"] to nil' do
+        controller.stub(:validate_mobility_choices){false}
+        get :third_step
+        session["mobility_choices"].should be_nil
+      end
     end
     context 'when session["mobility_choices"] is valid' do
-      it 'builds @mobility_choices and assigns it'
-      it 'renders the third step template'
+      it 'builds @mobility_choices and assigns it' do
+        get :third_step
+        assigns[:mobility_choices].should eq({
+          7 => 10,
+          8 => 0
+        })
+
+        session["mobility_choices"] = valid_mobility_choices_with_two_choices
+        get :third_step
+        assigns[:mobility_choices].should eq({
+          7 => 10,
+          8 => 14
+        })
+
+        session["mobility_choices"] = nil
+        get :third_step
+        assigns[:mobility_choices].should eq({
+          7 => 0,
+          8 => 0
+        })
+        end
+      it 'renders the third step template' do
+        get :third_step
+        response.should render_template('third_step')
+      end
     end
   end
 

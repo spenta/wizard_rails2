@@ -5,14 +5,13 @@
   <div id="main" class="usages third_page"> 
     <%= render 'title_and_sideinfo', :page_number => 'third' %>
     <%= form_tag(:root) do %>
-      <% @mobility_choices.each do |mobility_key, mobility_value|  %>
-        <%= content_tag :div, :id=>mobility_key, :class => 'question' do%>
-          <% mobility_id = mobility_key.split('_').last  %>
+      <% @mobility_choices.each do |mobility_id, weight|  %>
+        <%= content_tag :div, :id=>"mobility_#{mobility_id}", :class => 'question' do%>
           <span class="qicon"></span> 
           <div class="qbody">
 
             <div class="qname">
-              <h2 class="usageTitle"><%=t_safe "mobility_#{mobility_id}"%></h2>
+              <h2 class="usageTitle"><%=t_safe "mobility_title_#{mobility_id}"%></h2>
               <p class="weightExplain"><%= t_safe "form_third_step_question_mobility_#{mobility_id}" %></p>
             </div>
 
@@ -20,7 +19,7 @@
               <select class="slider nosnap" name='<%= "mobility_weight_#{mobility_id}" %>' id='<%= "mobility_weight_#{mobility_id}" %>' >
                 <option value="0"><%= t :form_second_step_not_important %></option>
                 <option value=""></option>
-                <option value="<%= mobility_value %>" selected="selected"></option>
+                <option value="<%= weight %>" selected="selected"></option>
                 <option value=""></option>
                 <option value="100"><%= t :form_second_step_very_important %></option>
               </select>
