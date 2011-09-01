@@ -28,7 +28,6 @@ Feature: visitor selects mobilities
     Then I should be on the second page of the form
     And the weight of "Bureautique" should be 100
 
-  @current
   @javascript
   Scenario: go back to the first step then to the second
     When I click on "back"
@@ -40,4 +39,5 @@ Feature: visitor selects mobilities
   @javascript
   Scenario: go to the recommandations page
     When I click on "next page"
-    Then I should be on the recommandations page
+    Then I should see a wait popup
+    And I should be on the recommandations page

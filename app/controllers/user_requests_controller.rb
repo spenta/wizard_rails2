@@ -65,6 +65,20 @@ class UserRequestsController < ActionController::Base
     end
   end
 
+  def choose_mobilities
+    if validate_mobility_choices(chosen_mobilities)
+      session["mobility_choices"] = chosen_mobilities
+    else
+      session["mobility_choices"] = nil
+      session["usage_choices"] =nil
+      redirect_to form_first_step_path and return if response
+    end
+    redirect_to recommandations_path
+  end
+
+  def recommandations
+  end
+
   #helpers
 
   def previous_weight super_usage_key
@@ -102,6 +116,14 @@ class UserRequestsController < ActionController::Base
     result = []
     params.each_key do |key|
       result << key.split('_').last.to_i if (key =~ /^usage_[0-9]+$/ && is_valid_usage(key))
+    end
+    result
+  end
+
+  def chosen_mobilities
+    result = {}
+    params.each do |key, value|
+      result[key.to_s] = value if key.to_s =~ /mobility_\d+/
     end
     result
   end

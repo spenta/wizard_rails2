@@ -170,6 +170,27 @@ describe UserRequestsController do
     end
   end
 
+  describe 'POST choose_mobilities', :focus => true do
+    context 'when the request is valid' do
+      before :each do
+        post :choose_mobilities, :mobility_7 => '13', :mobility_8 => '100'
+      end
+      it 'updates session["mobility_choices"]' do
+        session["mobility_choices"].should eq({
+          "mobility_7" => "13",
+          "mobility_8" => "100"
+        })
+      end
+      it 'logs the usage and mobility choices to the database'
+      it 'assigns @product_scored'
+      it 'assigns @sigmas and @gammas'
+      it 'redirects to the recommadations page' do
+        response.should redirect_to(recommandations_path)
+      end
+    end
+    context 'when the request is invalid'
+  end
+
   #helpers
   describe 'chosen_usages' do
     it 'selects usage id from request parameters' do
