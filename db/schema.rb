@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110820191545) do
+ActiveRecord::Schema.define(:version => 20110901154019) do
 
   create_table "super_usages", :force => true do |t|
     t.string   "name"
@@ -19,10 +20,8 @@ ActiveRecord::Schema.define(:version => 20110820191545) do
   end
 
   create_table "usage_choices", :force => true do |t|
-    t.float    "weight_for_user"
     t.integer  "usage_id"
     t.integer  "user_request_id"
-    t.boolean  "is_selected"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
