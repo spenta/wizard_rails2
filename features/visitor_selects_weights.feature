@@ -35,3 +35,4 @@ Feature: visitor selects weights
   Scenario: click on next page
     When I click on "next page"
     Then I should be on the third page of the form
+

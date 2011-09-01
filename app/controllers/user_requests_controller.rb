@@ -1,6 +1,6 @@
 class UserRequestsController < ActionController::Base
   layout 'application'
-  before_filter :assign_usage_choices, :only => [:first_step, :second_step, :third_step]
+  before_filter :assign_usage_choices, :only => [:first_step, :second_step, :third_step, :choose_usages]
   attr_accessor :usage_choices
 
   def new_request
@@ -40,7 +40,7 @@ class UserRequestsController < ActionController::Base
       usage_choices[super_usage_key]["selected_usages"] ||= ""
       usage_choices[super_usage_key]["selected_usages"] += ", #{usage_id}"
       usage_choices[super_usage_key]["selected_usages"].gsub!(/^(, )/, "")
-      usage_choices[super_usage_key]["weight"] = "50"
+      usage_choices[super_usage_key]["weight"] = previous_weight(super_usage_key)
     end
     if usage_choices.empty?
       session[:usage_choices] = nil
@@ -66,6 +66,14 @@ class UserRequestsController < ActionController::Base
   end
 
   #helpers
+
+  def previous_weight super_usage_key
+    if @usage_choices && @usage_choices[super_usage_key]
+      @usage_choices[super_usage_key]["weight"]
+    else
+      "50"
+    end
+  end
 
   def selected_usages
     result = []

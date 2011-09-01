@@ -85,6 +85,10 @@ When /^I set the weight for the super usage "([^"]*)" to (\d+)$/ do |super_usage
     # drag the handle to the super usage icon to the left  to simulate a drag and drop to the left end of the slider
     target = page.find(".qicon")
     handler.drag_to(target)
+  when "100"
+    # drag the handle to the sideinfo to the right to simulate a drag and drop to the left end of the slider
+    target = page.find(".sideinfo")
+    handler.drag_to(target)
   else
     raise "no action defined for this weight"
   end

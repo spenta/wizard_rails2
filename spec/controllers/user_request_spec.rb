@@ -126,11 +126,11 @@ describe UserRequestsController do
 
   describe 'POST choose_usages' do
     context 'when at least one valid usage is choosen' do
-      it 'creates a new usage_choices in session with weight_for_user equal to 50 for chosen super usages' do
+      it 'creates a new usage_choices in session with weight_for_user equal to 50 for chosen super usages if they are not already chosen' do
         controller.stub(:chosen_usages) {[1, 2, 3]}
         post :choose_usages 
         session[:usage_choices].should eq({
-          "super_usage_1" => {"selected_usages" => "1, 2", "weight" => "50"},
+          "super_usage_1" => {"selected_usages" => "1, 2", "weight" => "23"},
           "super_usage_2" => {"selected_usages" => "3", "weight" => "50"}
         })
       end
