@@ -97,6 +97,10 @@ Then /^(?:|I )should be on the (.*) page of the form$/ do |page_number|
   page.should have_css(".#{page_number}_page")
 end
 
+Then /^I should be on the recommandations page$/ do
+  page.should have_css('.recommandations_page')
+end
+
 Then /^I should see all the super usages$/ do
   SuperUsage.all_except_mobilities.each do |su|
     page.should have_css("#super_usage_#{su.id}")

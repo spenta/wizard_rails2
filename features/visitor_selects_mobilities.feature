@@ -21,8 +21,13 @@ Feature: visitor selects mobilities
     And the weight of the "Mobilite_1" mobility should be 0
     And the weight of the "Mobilite_2" mobility should be 0
 
-  @current
   @javascript
   Scenario: go back to the second step
     When I click on "back"
     Then I should be on the second page of the form
+
+  @current
+  @javascript
+  Scenario: go to the recommandations page
+    When I click on "next page"
+    Then I should be on the recommandations page
