@@ -14,10 +14,15 @@ Feature: visitor selects mobilities
     And I click on "next page"
     And I click on "next page"
 
-  @current
   @javascript
   Scenario: see all the mobilities
     When I do nothing
     Then I should see all the mobilities
     And the weight of the "Mobilite_1" mobility should be 0
     And the weight of the "Mobilite_2" mobility should be 0
+
+  @current
+  @javascript
+  Scenario: go back to the second step
+    When I click on "back"
+    Then I should be on the second page of the form
