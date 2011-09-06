@@ -4,8 +4,10 @@ gem 'rails', '~> 3.1'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
-gem 'sprockets'
+#gem 'mysql2'
+#gem 'sprockets'
+gem "mongoid", "~> 2.2"
+gem "bson_ext", "~> 1.3"
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -24,10 +26,10 @@ end
 
 group :test, :cucumber do
   gem 'cucumber-rails'
-  gem 'factory_girl_rails'
+  gem 'fabrication'
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'sqlite3'
+  #gem 'sqlite3'
   # Pretty printed test output
   gem 'turn', :require => false
   gem 'webrat' 

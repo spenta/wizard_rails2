@@ -33,6 +33,8 @@ GEM
     ansi (1.3.0)
     arel (2.2.1)
     bcrypt-ruby (3.0.0)
+    bson (1.3.1)
+    bson_ext (1.3.1)
     builder (3.0.0)
     capybara (1.0.1)
       mime-types (>= 1.16)
@@ -65,10 +67,7 @@ GEM
     erubis (2.7.0)
     execjs (1.2.4)
       multi_json (~> 1.0)
-    factory_girl (2.0.5)
-    factory_girl_rails (1.1.0)
-      factory_girl (~> 2.0.0)
-      railties (>= 3.0.0)
+    fabrication (1.1.0)
     ffi (1.0.9)
     gherkin (2.4.16)
       json (>= 1.4.6)
@@ -86,8 +85,13 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
+    mongo (1.3.1)
+      bson (>= 1.3.1)
+    mongoid (2.2.0)
+      activemodel (~> 3.0)
+      mongo (~> 1.3)
+      tzinfo (~> 0.3.22)
     multi_json (1.0.3)
-    mysql2 (0.3.7)
     nokogiri (1.5.0)
     polyglot (0.3.2)
     rack (1.3.2)
@@ -146,7 +150,6 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     spruz (0.2.13)
-    sqlite3 (1.3.4)
     term-ansicolor (1.0.6)
     therubyracer (0.9.4)
       libv8 (~> 3.3.10)
@@ -172,20 +175,19 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bson_ext (~> 1.3)
   capybara
   coffee-rails (~> 3.1)
   cucumber-rails
   database_cleaner
   execjs
-  factory_girl_rails
+  fabrication
   jquery-rails
-  mysql2
+  mongoid (~> 2.2)
   rails (~> 3.1)
   rspec-rails
   sass-rails (~> 3.1)
   spork (~> 0.9.0.rc)
-  sprockets
-  sqlite3
   therubyracer
   turn
   uglifier
