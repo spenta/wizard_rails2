@@ -22,7 +22,7 @@ describe UserRequestsController do
   end
 
   describe 'GET new_request' do
-    it 'reset the session' do
+    it 'reset the session', :focus => true do
       get :new_request
       session.should eq({})
     end
@@ -170,7 +170,7 @@ describe UserRequestsController do
     end
   end
 
-  describe 'POST choose_mobilities', :focus => true do
+  describe 'POST choose_mobilities' do
     context 'when the request is valid' do
       before :each do
         post :choose_mobilities, :mobility_7 => '13', :mobility_8 => '100'
@@ -284,10 +284,6 @@ describe UserRequestsController do
 end
 
 private
-
-def mock_super_usage
-  @mock_super_usage ||= mock_model(SuperUsage) 
-end
 
 def bureautique_usage_choices
   usage_choices = {"super_usage_1"=>{"selected_usages"=>"1, 2","weight"=>"23"}}

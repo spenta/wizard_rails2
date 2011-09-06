@@ -1,2 +1,2 @@
-class UsageChoice < ActiveRecord::Base
+class UsageChoice
 end
