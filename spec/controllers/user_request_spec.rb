@@ -5,9 +5,9 @@ describe UserRequestsController do
     super_usage_id = 1
     usage_id = 1
     %w{Bureautique Internet Jeux Mobilite}.each do |super_usage_name|
-      super_usage = Factory(:super_usage, :name => super_usage_name, :id => super_usage_id)
+      super_usage = Fabricate(:super_usage, :name => super_usage_name, :id => super_usage_id)
       [1, 2].each do |usage_number|
-        Factory(:usage, :name => "#{super_usage_name}_#{usage_number}", :super_usage_id => super_usage_id, :id => usage_id)
+        Fabricate(:usage, :name => "#{super_usage_name}_#{usage_number}", :super_usage => super_usage, :id => usage_id)
         usage_id += 1
       end
       super_usage_id += 1

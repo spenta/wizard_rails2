@@ -1,5 +1,2 @@
-FactoryGirl.define do
-  factory :super_usage do
-    name 'Bureautique'
-  end
+Fabricator(:super_usage) do
 end
