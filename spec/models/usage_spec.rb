@@ -31,4 +31,10 @@ describe Usage do
       Usage.non_mobility_ids.should =~ (1..6).to_a
     end
   end
+
+  describe 'all_ids' do
+    it 'returns an array containing all the usage ids' do
+      Usage.all_ids.should =~ (1..8).to_a
+    end
+  end
 end

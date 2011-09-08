@@ -190,31 +190,50 @@ describe UserRequestsController do
 
   describe 'validate_usage_choices' do
     it 'returns true if usage_choices is well-formed and values are valid' do
-      valid_usage_choices = {
-        "super_usage_1"=>{"selected_usages"=>"1, 2","weight"=>"23"},
-        "super_usage_2"=>{"selected_usages"=>"3, 4","weight"=>"0"},
-        "super_usage_3"=>{"selected_usages"=>"5, 6","weight"=>"100"}
-      }
       controller.validate_usage_choices(valid_usage_choices).should be_true
     end
     it 'returns false if usage_choices is not well-formed' do
-      #spelling mistake on selected_usages
-      usage_choices = {"super_usage_1" => {"selected_uages" => "1, 2", "weight" => "23"}}
+      #spelling mistake usage
+      usage_choices = {
+        "usae_1" => "10",
+        "usage_2" => "35",
+        "usage_3" => "100",
+        "usage_6" => "0",
+        "usage_7" => "10",
+        "usage_8" => "0"
+      }
       controller.validate_usage_choices(usage_choices).should be_false
-      #space after super_usage_1
-      usage_choices = {"super_usage_1 " => {"selected_usages" => "1, 2", "weight" => "23"}}
+      #space after usage_1
+      usage_choices = {
+        "usage_1 " => "10",
+        "usage_2" => "35",
+        "usage_3" => "100",
+        "usage_6" => "0",
+        "usage_7" => "10",
+        "usage_8" => "0"
+      }
       controller.validate_usage_choices(usage_choices).should be_false
     end
-    it 'returns false if usage_choices has invalid super_usages' do
-      usage_choices = {"super_usage_100" => {"selected_usages" => "1, 2", "weight" => "23"}}
-      controller.validate_usage_choices(usage_choices).should be_false
-    end
-    it 'returns false if usage_choices associates wrong usages to super_usages' do
-      usage_choices = {"super_usage_1" => {"selected_usages" => "3, 5", "weight" => "23"}}
+    it 'returns false if usage_id are invalid' do
+      usage_choices = {
+        "usage_10" => "10",
+        "usage_2" => "35",
+        "usage_3" => "100",
+        "usage_6" => "0",
+        "usage_7" => "10",
+        "usage_8" => "0"
+      }
       controller.validate_usage_choices(usage_choices).should be_false
     end
     it 'returns false if usage_choices has an invalid weight' do
-      usage_choices = {"super_usage_1" => {"selected_usages" => "1, 2", "weight" => "239"}}
+      usage_choices = {
+        "usage_1" => "-10",
+        "usage_2" => "35",
+        "usage_3" => "100",
+        "usage_6" => "0",
+        "usage_7" => "10",
+        "usage_8" => "0"
+      }
       controller.validate_usage_choices(usage_choices).should be_false
     end
   end

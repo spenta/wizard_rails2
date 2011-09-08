@@ -133,18 +133,13 @@ class UserRequestsController < ActionController::Base
 
   def validate_usage_choices usage_choices
     #checks that usage_choices looks like
-    # {"super_usage_1" => {"selected_usages" => "2", "weight" => "23"}}
+    # {"usage_1" => "19"}
     begin
-      throw "usage_choices not well-formed : #{usage_choices.to_s}" unless usage_choices.to_s =~ /\{(\"super_usage_\d+\"=>\{\"selected_usages\"=>\"\d+(, \d+)*\", \"weight\"=>\"\d+\"\}(, )?)+\}/
-      usage_choices.each do |super_usage_key, super_usage_value|
-        super_usage_id = super_usage_key.split('super_usage_').last.to_i
-        throw "invalid mobilit-related super_usage" unless SuperUsage.all_except_mobilities_ids.include?(super_usage_id)
-        usage_ids = super_usage_value["selected_usages"].split(", ")
-        usage_ids.each do |u_id| 
-          throw "invalid usage/super_usage association during session validation" unless Usage.find(u_id).super_usage_id == super_usage_id
-        end
-        weight = super_usage_value["weight"].to_i
-        throw "invalid weight during session validation : #{weight}" unless (0..100).include?(weight)
+      throw "usage_choices not well-formed : #{usage_choices.to_s}" unless usage_choices.to_s =~ /\{(\"usage_\d+\"=>\"\d+\"(, )?)+\}/
+      usage_choices.each do |usage_key, weight|
+        usage_id = usage_key.split('usage_').last.to_i
+        throw "invalid weight during session validation : #{weight.to_i}" unless (0..100).include?(weight.to_i)
+        throw "invalid usage_id : #{usage_id}" unless Usage.all_ids.include?(usage_id)
       end
     rescue
       return false

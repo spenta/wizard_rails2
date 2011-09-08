@@ -28,6 +28,10 @@ class Usage
     result
   end
 
+  def self.all_ids
+    @@all_ids ||= (mobility_ids|non_mobility_ids)
+  end
+
   def self.reset
     @@mobility_ids = nil
     @@non_mobility_ids = nil
