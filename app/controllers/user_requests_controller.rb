@@ -9,7 +9,7 @@ class UserRequestsController < ActionController::Base
   end
 
   def first_step
-    @super_usages = SuperUsage.all_except_mobilities
+    @super_usages = SuperUsage.non_mobility
     @selected_usages = selected_usages
   end
 
@@ -20,33 +20,24 @@ class UserRequestsController < ActionController::Base
   end
 
   def third_step
-    session["mobility_choices"] = nil if !validate_mobility_choices(session["mobility_choices"])
-    @mobility_choices = {}
-    if session["mobility_choices"].nil?
-      Usage.all_mobilities_ids.each {|mobility_id| @mobility_choices[mobility_id] = 0}
-    else
-      Usage.all_mobilities_ids.each do |mobility_id|
-        @mobility_choices[mobility_id] = session["mobility_choices"]["mobility_#{mobility_id}"].to_i || 0
-      end
-    end
   end
 
   def choose_usages
-    usage_choices = {}
-    chosen_usages(params).each do |usage_id|
-      usage = Usage.find(usage_id)
-      super_usage_key = "super_usage_#{usage.super_usage_id}"
-      usage_choices[super_usage_key] ||= {}
-      usage_choices[super_usage_key]["selected_usages"] ||= ""
-      usage_choices[super_usage_key]["selected_usages"] += ", #{usage_id}"
-      usage_choices[super_usage_key]["selected_usages"].gsub!(/^(, )/, "")
-      usage_choices[super_usage_key]["weight"] = previous_weight(super_usage_key)
+    #remove unselected usages
+    @usage_choices.delete_if do |usage_key, weight_s|
+      usage_id = usage_key.split('_').last.to_i
+      !(Usage.mobility_ids.include?(usage_id) || chosen_usages(params).include?(usage_id)) 
     end
-    if usage_choices.empty?
-      session[:usage_choices] = nil
+    #add new usage choices
+    chosen_usages.each do |usage_id|
+      unless @usage_choices["usage_#{usage_id}"]
+        @usage_choices["usage_#{usage_id}"] = "50"
+      end
+    end
+    session[:usage_choices] = @usage_choices
+    if @usage_choices.count == Usage.mobility_ids.length #no non-mobility choices
       redirect_to :form_first_step, :flash => {:error => "no_valid_usages"}
     else
-      session[:usage_choices] = usage_choices
       redirect_to :form_second_step
     end
   end
@@ -54,9 +45,14 @@ class UserRequestsController < ActionController::Base
   def choose_weights
     at_least_one_weight = false
     chosen_weights = params.select{|key, value| key =~ /^super_usage_weight_[0-9]+$/ && value =~ /^\d+$/}
+    #redirect_to :new_request and return if choosen_weight.empty?
     chosen_weights.each do |super_usage_key, weight_string|
       at_least_one_weight = true if weight_string.to_i > 0
-      session["usage_choices"][super_usage_key.gsub('_weight','')]["weight"]=weight_string
+      super_usage_id = super_usage_key.split('_').last.to_i
+      super_usage = SuperUsage.where(:super_usage_id => super_usage_id).first
+      super_usage.usages.each do |u|
+        session["usage_choices"]["usage_#{u.usage_id}"] = weight_string
+      end 
     end
     if at_least_one_weight
       redirect_to form_third_step_path
@@ -92,24 +88,26 @@ class UserRequestsController < ActionController::Base
   def selected_usages
     result = []
     unless @usage_choices.nil?
-      @usage_choices.each_value do |super_usage_value|
-        super_usage_value["selected_usages"].split(', ').each do |usage_id|
-          result << usage_id.to_i
-        end
+      @usage_choices.each_key do |usage_key|
+        usage_id = usage_key.split('_').last.to_i 
+        result << usage_id if Usage.non_mobility_ids.include?(usage_id)
       end
     end
     result
   end
 
   def assign_usage_choices
-    unless session[:usage_choices].nil?
+    if session[:usage_choices].nil?
+      session["usage_choices"] = default_usage_choices
+    else
       if validate_usage_choices(session[:usage_choices])
         @usage_choices = session[:usage_choices] 
       else
-        session[:usage_choices] = nil
+        session[:usage_choices] = default_usage_choices
         redirect_to new_request_path and return if response
       end
     end
+    @usage_choices = session["usage_choices"]
   end
 
   def chosen_usages params
@@ -130,7 +128,7 @@ class UserRequestsController < ActionController::Base
 
   def is_valid_usage usage_name
     usage_id = usage_name.split('_').last.to_i
-    Usage.all_except_mobilities_ids.include?(usage_id)
+    Usage.non_mobility_ids.include?(usage_id)
   end
 
   def validate_usage_choices usage_choices
@@ -166,5 +164,13 @@ class UserRequestsController < ActionController::Base
     rescue
       return false
     end
+  end
+
+  def default_usage_choices
+    result = {}
+    Usage.mobility_ids.each do |mobility_id|
+      result["usage_#{mobility_id}"] = "0"
+    end
+    result
   end
 end
