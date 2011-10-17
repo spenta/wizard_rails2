@@ -37,6 +37,20 @@ Spork.each_run do
   #require 'factory_girl_rails'
   ##FactoryGirl.find_definitions
   #Dir.glob(File.join(File.dirname(__FILE__), '../../spec/factories/
-#> *.rb')).each {|f| require f }
+  #> *.rb')).each {|f| require f }
   #Dir[Rails.root.join('spec/factories/**/*.rb')].each{|f| load f}
 end if Spork.using_spork?
+
+def fabricate_super_usages
+  super_usage_id = 1
+  usage_id = 1
+  %w{Bureautique Internet Jeux Mobilite}.each do |super_usage_name|
+    is_mobility = (super_usage_name == "Mobilite")
+    super_usage = Fabricate(:super_usage, :name => super_usage_name, :super_usage_id => super_usage_id, :is_mobility => is_mobility)
+    [1, 2].each do |usage_number|
+      Fabricate(:usage, :name => "#{super_usage_name}_#{usage_number}", :super_usage => super_usage, :usage_id => usage_id)
+      usage_id += 1
+    end
+    super_usage_id += 1
+  end
+end

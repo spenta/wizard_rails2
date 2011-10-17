@@ -6,7 +6,7 @@
     <%= render 'title_and_sideinfo', :page_number => 'first' %>
     <%= form_tag(choose_usages_path, :class => 'tabbed') do %>
       <% @super_usages.each do |su|  %>
-        <%= content_tag :div, :id=>"super_usage_#{su.id}", :class => 'question' do%>
+        <%= content_tag :div, :id=>"super_usage_#{su.super_usage_id}", :class => 'question' do%>
           <span class="qicon"></span>
           <div class="qbody">
             <div class="qname">
@@ -22,10 +22,10 @@
             <div class="answer multichoice">
               <% su.usages.each do |u|  %>
                 <label>
-                  <% @selected_usages.include?(u.id) ? checked=true : checked=false  %>
-                  <%= check_box_tag "usage_#{u.id}", 1, checked %>
-                  <%= content_tag :span, t_safe("usage_title_#{u.id}"), :class => "name usage_name usage_name_#{u.id}"%>
-                  <span class="desc"><%=t_safe "usage_description_#{u.id}"%></span>
+                  <% @selected_usages.include?(u.usage_id) ? checked=true : checked=false  %>
+                  <%= check_box_tag "usage_#{u.usage_id}", 1, checked %>
+                  <%= content_tag :span, t_safe("usage_title_#{u.usage_id}"), :class => "name usage_name usage_name_#{u.usage_id}"%>
+                  <span class="desc"><%=t_safe "usage_description_#{u.usage_id}"%></span>
                 </label>
               <% end  %>
             </div>
